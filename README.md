@@ -1,1 +1,1 @@
-# smart-room-web-simulator
+# wot-web-simulator
