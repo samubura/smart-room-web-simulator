@@ -1,0 +1,24 @@
+{
+  "name": "smart-room-web-simulator",
+  "version": "1.0.0",
+  "description": "a server to expose a rgb lamp thing description",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samubura/smart-room-web-simulator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samubura/smart-room-web-simulator/issues"
+  },
+  "homepage": "https://github.com/samubura/smart-room-web-simulator#readme",
+  "dependencies": {
+    "@node-wot/binding-http": "^0.7.8",
+    "@node-wot/core": "^0.7.8",
+    "express": "^4.17.1",
+    "socket.io": "^4.3.2"
+  }
+}

@@ -1,0 +1,72 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "title": "Lamp",
+    "base": "http://localhost:3000/lamps/lamp-1",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "nosec_sc"
+    ],
+    "properties": {
+        "status": {
+            "type": "boolean",
+            "forms": [
+                {
+                    "href": "/status",
+                    "op": [
+                        "readproperty"
+                    ]
+                }
+            ]
+        },
+        "color": {
+            "type": "string",
+            "forms": [
+                {
+                    "href": "/color",
+                    "op": [
+                        "readproperty"
+                    ]
+                }
+            ]
+        }
+    },
+    "actions": {
+        "toggle": {
+            "forms": [
+                {
+                    "href": "/toggle"
+                }
+            ]
+        },
+        "setColor": {
+            "input": {
+                "type": "object",
+                "properties": {
+                    "color": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "color"
+                ]
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "color": {
+                        "type": "string"
+                    }
+                }
+            },
+            "forms": [
+                {
+                    "href": "/color"
+                }
+            ]
+        }
+    }
+}
