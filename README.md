@@ -1,1 +1,1 @@
-# wot-lamp-mock
+# smart-room-web-simulator
