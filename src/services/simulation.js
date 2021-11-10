@@ -1,6 +1,15 @@
 const fs = require('fs')
 const path = require('path')
+const config = require('../../config')
 let simulationThings = {}
+
+
+function simulate(){
+  for(t in simulationThings){
+    simulationThings[t].tick()
+  }
+  setTimeout(simulate, 1000/config.ticksPerSecond)
+}
 
 
 module.exports.start = function(tdFolder) {
@@ -11,6 +20,7 @@ module.exports.start = function(tdFolder) {
     var thing = require('../models/'+td.title).create(id)
     simulationThings[id] = thing
   })
+  simulate();
 }
 
 module.exports.getThing = function(thingId) {
