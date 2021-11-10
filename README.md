@@ -1,0 +1,1 @@
+# wot-lamp-mock
