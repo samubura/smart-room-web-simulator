@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const config = require('../../config')
+const config = require('../../../config')
 let simulationThings = {}
 
 
@@ -17,7 +17,7 @@ module.exports.start = function(tdFolder) {
   things.forEach(t => {
     var td = JSON.parse(fs.readFileSync(path.join('..', 'td', tdFolder, t),'utf8'));
     var id = path.parse(t).name
-    var thing = require('../models/'+td.title).create(id)
+    var thing = require('./wrappers/'+td.title).create(id)
     simulationThings[id] = thing
   })
   simulate();
@@ -25,4 +25,13 @@ module.exports.start = function(tdFolder) {
 
 module.exports.getThing = function(thingId) {
   return simulationThings[thingId]
+}
+
+
+module.exports.readProperty = function(thingId, property) {
+  return this.getThing(thingId).readProperty(property)
+}
+
+module.exports.invokeAction = function(thingId, action, data) {
+  return this.getThing(thingId).invokeAction(action, data)
 }

@@ -13,4 +13,4 @@ client.get('/smart-room/things').then(res => {
 //generate things components
 
 //subscribe events
-socket.on("lamp-event", (arg) => {console.log(arg);})
+socket.on("thing-update", (arg) => {console.log(arg);})

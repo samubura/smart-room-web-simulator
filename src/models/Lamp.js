@@ -30,4 +30,4 @@ class Lamp extends ThingInterface {
   }
 }
 
-module.exports.create = (id) => new Lamp(id)
+module.exports = Lamp

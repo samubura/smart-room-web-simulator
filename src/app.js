@@ -17,9 +17,8 @@ exports.startServer = async function(port) {
   io.on('connection', function (socket) {
     console.log('Socket open')
     eventService.onConnection(socket)
+    simulation.start(workspace);
   })
-
-  simulation.start(workspace);
 
   //bodyparser
   var rawBodySaver = function (req, res, buf, encoding) {
