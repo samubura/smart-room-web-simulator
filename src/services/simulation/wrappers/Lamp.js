@@ -3,9 +3,11 @@ const ThingWrapper = require("./ThingWrapper");
 
 class LampWrapper extends ThingWrapper {
 
-  constructor(id){
-    super(id, false)
-    this.thing = new Lamp(id)
+  constructor(id, env){
+    super(id, env, false)
+    
+    //since Lamp is not a situated thing ignore the env
+    this.thing = new Lamp()
   }
 
   
@@ -13,10 +15,7 @@ class LampWrapper extends ThingWrapper {
     switch(propertyName){
       case 'color': return this.thing.getColor()
       case 'status': return this.thing.getStatus()
-      default: throw {
-        code: 404,
-        message:`Thing ${this.id} does not have property ${propertyName}`
-      }
+      default: this.propertyNotFound(propertyName)
     }
   }
 
@@ -25,19 +24,13 @@ class LampWrapper extends ThingWrapper {
       case 'setColor': if(data.color){
         return this.thing.setColor(data.color)
       } else {
-        throw {
-          code: 400,
-          message: `Incorrect data for action ${actionName}`
-        }
+        this.badInput(actionName)
       }
       case 'toggle': return this.thing.toggle()
-      default: throw {
-        code: 404,
-        message:`Thing ${this.id} does not have action ${actionName}`
-      }
+      default: this.actionNotFound(actionName)
     }
   }
 
 }
 
-module.exports.create = (id) => new LampWrapper(id)
+module.exports.create = (id, env) => new LampWrapper(id, env) 

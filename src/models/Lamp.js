@@ -4,13 +4,11 @@ class Lamp extends ThingInterface {
   
   status;
   color;
-  id
 
-  constructor(id){
-    super(id)
+  constructor(){
+    super()
     this.color = '#ffffcc';
     this.status = false;
-    this.id = id;
   }
 
   getStatus(){

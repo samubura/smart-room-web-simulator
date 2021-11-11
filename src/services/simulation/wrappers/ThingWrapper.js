@@ -4,11 +4,13 @@ class ThingWrapper {
 
   thing = undefined
   id = undefined
+  env = undefined
   tickEvent = true
   actionEvent = true
 
-  constructor(id, tickEvent = true, actionEvent = true){
+  constructor(id, env, tickEvent = true, actionEvent = true){
     this.id = id
+    this.env = env
     this.tickEvent = tickEvent
     this.actionEvent = actionEvent
   }
@@ -27,21 +29,32 @@ class ThingWrapper {
     return res
   }
 
+  propertyNotFound(propertyName){
+    throw {
+      code: 404,
+      message:`Thing ${this.id} does not have property ${propertyName}`
+    }
+  }
+
+  actionNotFound(actionName){
+    throw {
+      code: 404,
+      message:`Thing ${this.id} does not have action ${actionName}`
+    }
+  }
+
+  badInput(affordanceName){
+    throw {
+      code: 400,
+      message:`Input for ${affordanceName} on thing ${this.id} was not correct`
+    }
+  }
+
   publishThing(){
     eventService.publish("thing-update", {
       id: this.id,
       thing: this.thing
     })
-  }
-
-  //abstract
-  mapProperty(propertyName){
-    return undefined
-  }
-
-  //abstract
-  mapAction() {
-    return undefined
   }
 
   tick(){
@@ -50,6 +63,17 @@ class ThingWrapper {
       this.publishThing()
     }
   }
+
+  //abstract
+  mapProperty(propertyName){
+    this.propertyNotFound(propertyName)
+  }
+
+  //abstract
+  mapAction(actionName, body) {
+    this.actionNotFound(actionName)
+  }
+
 }
 
 module.exports = ThingWrapper

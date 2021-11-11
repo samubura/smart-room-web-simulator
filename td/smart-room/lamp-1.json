@@ -1,6 +1,7 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
-    "title": "Lamp",
+    "@type": "Lamp",
+    "title": "lamp-1",
     "base": "http://localhost:3000/affordances/lamp-1",
     "securityDefinitions": {
         "nosec_sc": {

@@ -1,9 +1,4 @@
 class ThingInterface {
-  
-  constructor(id){
-    
-  }
-
   tick(){
 
   }
