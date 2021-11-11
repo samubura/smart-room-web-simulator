@@ -4,38 +4,38 @@ const ThingWrapper = require('./ThingWrapper')
 
 class EnvironmentWrapper extends ThingWrapper {
 
-  constructor(id, env, tickEvent = true, actionEvent = true){
+  constructor(id, env, tickEvent = true, actionEvent = true) {
     super(id, env, tickEvent, actionEvent)
   }
 
-  publishThing(){
+  publishThing() {
     eventService.publish("environment-update", {
       id: this.id,
       thing: this.thing
     })
   }
 
-  propertyNotFound(propertyName){
+  propertyNotFound(propertyName) {
     throw {
       code: 404,
-      message:`Environment does not have property ${propertyName}`
+      message: `Environment does not have property ${propertyName}`
     }
   }
 
-  actionNotFound(actionName){
+  actionNotFound(actionName) {
     throw {
       code: 404,
-      message:`Environment does not have action ${actionName}`
+      message: `Environment does not have action ${actionName}`
     }
   }
 
-  badInput(affordanceName){
+  badInput(affordanceName) {
     throw {
       code: 400,
-      message:`Input for ${affordanceName} on environment was not correct`
+      message: `Input for ${affordanceName} on environment was not correct`
     }
   }
-  
+
 }
 
 module.exports = EnvironmentWrapper

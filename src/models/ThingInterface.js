@@ -1,6 +1,6 @@
 class ThingInterface {
-  tick(){
-
+  tick() {
+    //code that modify the state of the thing on each simulation tick
   }
 }
 

@@ -8,7 +8,7 @@ class ThingWrapper {
   tickEvent = true
   actionEvent = true
 
-  constructor(id, env, tickEvent = true, actionEvent = true){
+  constructor(id, env, tickEvent = true, actionEvent = true) {
     this.id = id
     this.env = env
     this.tickEvent = tickEvent
@@ -16,56 +16,56 @@ class ThingWrapper {
   }
 
 
-  readProperty(propertyName){
+  readProperty(propertyName) {
     var res = this.mapProperty(propertyName)
     return res
   }
 
-  invokeAction(actionName, data){
+  invokeAction(actionName, data) {
     var res = this.mapAction(actionName, data)
-    if(this.actionEvent) {
+    if (this.actionEvent) {
       this.publishThing()
     }
     return res
   }
 
-  propertyNotFound(propertyName){
+  propertyNotFound(propertyName) {
     throw {
       code: 404,
-      message:`Thing ${this.id} does not have property ${propertyName}`
+      message: `Thing ${this.id} does not have property ${propertyName}`
     }
   }
 
-  actionNotFound(actionName){
+  actionNotFound(actionName) {
     throw {
       code: 404,
-      message:`Thing ${this.id} does not have action ${actionName}`
+      message: `Thing ${this.id} does not have action ${actionName}`
     }
   }
 
-  badInput(affordanceName){
+  badInput(affordanceName) {
     throw {
       code: 400,
-      message:`Input for ${affordanceName} on thing ${this.id} was not correct`
+      message: `Input for ${affordanceName} on thing ${this.id} was not correct`
     }
   }
 
-  publishThing(){
+  publishThing() {
     eventService.publish("thing-update", {
       id: this.id,
       thing: this.thing
     })
   }
 
-  tick(){
+  tick() {
     this.thing.tick()
-    if(this.tickEvent){
+    if (this.tickEvent) {
       this.publishThing()
     }
   }
 
   //abstract
-  mapProperty(propertyName){
+  mapProperty(propertyName) {
     this.propertyNotFound(propertyName)
   }
 
