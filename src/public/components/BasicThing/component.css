@@ -1,0 +1,18 @@
+.thing-row {
+  padding-left: 10px;
+  background-color: lightgrey;
+  border-bottom: 1px solid;
+  border-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity));
+  padding: 10px;
+}
+
+.thing-name-row {
+  font-weight: bold;
+}
+
+.affordance-row .btn{
+  width: 30%;
+  margin: 5px;
+}
+
+

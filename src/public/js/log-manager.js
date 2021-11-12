@@ -16,7 +16,7 @@ class LogManager {
     var timeStamp = new Date().toLocaleTimeString('en-IT', { hour12: false })
     var eventString = `[${timeStamp}] ${event.id}: ${JSON.stringify(event.state)}`
     $('#logs').find('textarea').val(function(i, text) {
-      return text + '\n'+ eventString;
+      return text + eventString + '\n';
     });
     this._scrollToBottom();
   }

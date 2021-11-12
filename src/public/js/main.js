@@ -4,6 +4,7 @@ async function generateInterface(){
   $('#title').text(ws)
   var res = await client.get('workspace/'+ws+'/things')
   var things = res.data
+
   //get the tds, order and sort
   for(t of things){
     t.td = await getThingDescription(t.uri)
@@ -35,7 +36,7 @@ async function generateComponent(thing){
   if(type in componentFactory){
     thingComponent = await componentFactory[type].create(thing.td)
   } else {
-    thingComponent = await componentFactory["ThingInterface"].create(thing.td);
+    thingComponent = await componentFactory["BasicThing"].create(thing.td);
   }
   return thingComponent
 }

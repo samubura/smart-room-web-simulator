@@ -1,9 +1,23 @@
-#things{
+.navbar{
+  height: 10vh;
+}
+.content{
+  height:90vh;
+  padding: 0px;
+  margin: 0px;
+  padding-bottom: 10px;
+}
+
+#things {
+  height: 100%;
+  overflow-y: auto;
   border: 2px solid;
   border-top: none;
+  border-left: none;
   border-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity));
 }
 
 #logs>textarea{
   font-size: 13px!important;
+  resize: none;
 }

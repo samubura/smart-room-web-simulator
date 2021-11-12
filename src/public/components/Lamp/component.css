@@ -1,0 +1,23 @@
+.lamp-row{
+  height: 100px;
+  background-color:lightgrey;
+  border-bottom: 1px solid black;
+}
+
+.lamp-row p{
+  font-weight: bold;
+}
+
+.lamp-img{
+  height: 100%;
+  padding:10px;
+  display:flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.lamp-img>img{
+  height:100%;
+  width:auto;
+  margin-right: 50px;
+}
