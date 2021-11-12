@@ -26,12 +26,14 @@ class LampWrapper extends ThingWrapper {
     switch (actionName) {
       case 'setColor':
         if (data.color) {
-          return this.thing.setColor(data.color)
+          this.thing.setColor(data.color)
+          return {color: this.thing.getColor()}
         } else {
           this.badInput(actionName)
         }
-        case 'toggle':
-          return this.thing.toggle()
+        case 'toggle': 
+          this.thing.toggle()
+          return this.thing.getState()
         default:
           this.actionNotFound(actionName)
     }

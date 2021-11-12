@@ -1,4 +1,5 @@
 const simulation = require('../services/simulation')
+const {publish} = require('../services/event-service')
 const { ok, notFound, badRequest, internalServerError } = require('../utils/action-results')
 const fs = require('fs')
 const path = require('path')
@@ -30,6 +31,15 @@ function findActionName(thingId, reqForm){
   return name;
 }
 
+function getAgentId(req){
+  return req.headers['x-agent-id']
+}
+
+function logInteraction(req, affordance, type) {
+  var agentId = getAgentId(req)
+  publish("agent-interaction", {agentId, affordance, thingId: req.params.thingId, type});
+}
+
 
 exports.readProperty = function (req) {
   try {
@@ -37,7 +47,8 @@ exports.readProperty = function (req) {
     if(!propertyName){
       return notFound(`${req.url} not found`)
     }
-    
+
+    logInteraction(req, propertyName, "read property")
     var res = simulation.readProperty(req.params.thingId, propertyName)
     
     return ok(res)
@@ -55,6 +66,9 @@ exports.invokeAction = function (req) {
     if(!actionName){
       return notFound(`${req.url} not found`)
     }
+
+    logInteraction(req, actionName, "invoked action")
+
     var res = simulation.invokeAction(req.params.thingId, actionName, req.body)
     return ok(res)
   } catch (error) {

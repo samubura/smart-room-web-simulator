@@ -1,6 +1,8 @@
 .navbar{
   height: 10vh;
+  padding-left: 10px;
 }
+
 .content{
   height:90vh;
   padding: 0px;
@@ -17,7 +19,12 @@
   border-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity));
 }
 
+#logs{
+  padding:10px 10px;
+  padding-bottom: 0px;
+}
 #logs>textarea{
+  height:100%;
   font-size: 13px!important;
   resize: none;
 }

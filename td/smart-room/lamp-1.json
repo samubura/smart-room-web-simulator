@@ -43,9 +43,12 @@
     },
     "actions": {
         "toggle": {
+            "output": {
+                "type":"boolean"
+            },
             "forms": [
                 {
-                    "href": "/switch/on",
+                    "href": "/toggle",
                     "op": "invokeaction",
                     "contentType": "application/json"
                 }

@@ -21,7 +21,7 @@ class Lamp extends ThingComponentInterface {
     }
     
     var stateText = state.state ? " on": " off"
-    console.log($(`#${this.td.title}-state`))
+
     $(`#${this.td.title}-state`).text(stateText)
   }
 
