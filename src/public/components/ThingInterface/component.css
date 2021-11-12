@@ -1,0 +1,5 @@
+.thing-row {
+  background-color: lightgrey;
+  border-bottom: 1px solid;
+  border-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity));
+}

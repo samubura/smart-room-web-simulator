@@ -15,8 +15,8 @@ class LampWrapper extends ThingWrapper {
     switch (propertyName) {
       case 'color':
         return this.thing.getColor()
-      case 'status':
-        return this.thing.getStatus()
+      case 'state':
+        return this.thing.getState()
       default:
         this.propertyNotFound(propertyName)
     }

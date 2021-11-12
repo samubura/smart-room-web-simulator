@@ -12,11 +12,11 @@
         "nosec_sc"
     ],
     "properties": {
-        "status": {
+        "state": {
             "type": "boolean",
             "forms": [
                 {
-                    "href": "/status",
+                    "href": "/state",
                     "op": [
                         "readproperty"
                     ]

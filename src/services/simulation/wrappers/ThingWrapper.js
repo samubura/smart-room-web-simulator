@@ -24,7 +24,7 @@ class ThingWrapper {
   invokeAction(actionName, data) {
     var res = this.mapAction(actionName, data)
     if (this.actionEvent) {
-      this.publishThing()
+      this.publishUpdate()
     }
     return res
   }
@@ -50,17 +50,17 @@ class ThingWrapper {
     }
   }
 
-  publishThing() {
+  publishUpdate() {
     eventService.publish("thing-update", {
       id: this.id,
-      thing: this.thing
+      state: this.thing
     })
   }
 
   tick() {
     this.thing.tick()
     if (this.tickEvent) {
-      this.publishThing()
+      this.publishUpdate()
     }
   }
 

@@ -2,17 +2,17 @@ const ThingInterface = require("./ThingInterface");
 
 class Lamp extends ThingInterface {
 
-  status;
+  state;
   color;
 
   constructor() {
     super()
     this.color = '#ffffcc';
-    this.status = false;
+    this.state = false;
   }
 
-  getStatus() {
-    return this.status
+  getState() {
+    return this.state
   }
 
   getColor() {
@@ -20,7 +20,7 @@ class Lamp extends ThingInterface {
   }
 
   toggle() {
-    this.status = !this.status;
+    this.state = !this.state;
   }
 
   setColor(color) {
