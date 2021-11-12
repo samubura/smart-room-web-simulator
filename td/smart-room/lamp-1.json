@@ -2,7 +2,7 @@
     "@context": "https://www.w3.org/2019/wot/td/v1",
     "@type": "Lamp",
     "title": "lamp-1",
-    "base": "http://localhost:3000/affordances/lamp-1",
+    "base": "http://localhost:3000/affordances/smart-room/lamp-1",
     "securityDefinitions": {
         "nosec_sc": {
             "scheme": "nosec"
@@ -19,9 +19,12 @@
                     "href": "/state",
                     "op": [
                         "readproperty"
-                    ]
+                    ],
+                    "contentType": "application/json"
                 }
-            ]
+            ],
+            "readOnly": false,
+            "writeOnly": false
         },
         "color": {
             "type": "string",
@@ -30,44 +33,63 @@
                     "href": "/color",
                     "op": [
                         "readproperty"
-                    ]
+                    ],
+                    "contentType": "application/json"
                 }
-            ]
+            ],
+            "readOnly": false,
+            "writeOnly": false
         }
     },
     "actions": {
         "toggle": {
             "forms": [
                 {
-                    "href": "/toggle"
+                    "href": "/switch/on",
+                    "op": "invokeaction",
+                    "contentType": "application/json"
                 }
-            ]
+            ],
+            "safe": false,
+            "idempotent": false
         },
         "setColor": {
             "input": {
                 "type": "object",
                 "properties": {
                     "color": {
-                        "type": "string"
+                        "type": "string",
+                        "readOnly": false,
+                        "writeOnly": false
                     }
                 },
                 "required": [
                     "color"
-                ]
+                ],
+                "readOnly": false,
+                "writeOnly": false
             },
             "output": {
                 "type": "object",
                 "properties": {
                     "color": {
-                        "type": "string"
+                        "type": "string",
+                        "readOnly": false,
+                        "writeOnly": false
                     }
-                }
+                },
+                "readOnly": false,
+                "writeOnly": false
             },
             "forms": [
                 {
-                    "href": "/color"
+                    "href": "/color",
+                    "op": "invokeaction",
+                    "contentType": "application/json"
                 }
-            ]
+            ],
+            "safe": false,
+            "idempotent": false
         }
     }
 }

@@ -1,8 +1,8 @@
 async function generateInterface(){
-  var res = await client.get('workspace')
-  var ws = res.data.id
+  var res = await client.get('workspaces')
+  var ws = res.data[0].id
   $('#title').text(ws)
-  var res = await client.get('workspace/'+ws+'/things')
+  var res = await client.get('workspaces/'+ws+'/things')
   var things = res.data
 
   //get the tds, order and sort
