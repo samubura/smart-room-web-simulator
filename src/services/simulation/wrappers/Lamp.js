@@ -11,7 +11,7 @@ class LampWrapper extends ThingWrapper {
   }
 
 
-  mapProperty(propertyName) {
+  mapProperty(req, propertyName) {
     switch (propertyName) {
       case 'color':
         return this.thing.getColor()
@@ -22,7 +22,7 @@ class LampWrapper extends ThingWrapper {
     }
   }
 
-  mapAction(actionName, data) {
+  mapAction(req, actionName, data) {
     switch (actionName) {
       case 'setColor':
         if (data.color) {

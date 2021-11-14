@@ -49,7 +49,7 @@ exports.readProperty = function (req) {
     }
 
     logInteraction(req, propertyName, "read property")
-    var res = simulation.readProperty(req.params.thingId, propertyName)
+    var res = simulation.readProperty(req, req.params.thingId, propertyName)
     
     return ok(res)
   } catch (error) {
@@ -69,7 +69,7 @@ exports.invokeAction = function (req) {
 
     logInteraction(req, actionName, "invoked action")
 
-    var res = simulation.invokeAction(req.params.thingId, actionName, req.body)
+    var res = simulation.invokeAction(req, req.params.thingId, actionName, req.body)
     return ok(res)
   } catch (error) {
     if (error.code == 404) {

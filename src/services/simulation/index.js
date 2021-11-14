@@ -46,10 +46,10 @@ module.exports.getThing = function (thingId) {
   return simulationThings[thingId]
 }
 
-module.exports.readProperty = function (thingId, property) {
-  return this.getThing(thingId).readProperty(property)
+module.exports.readProperty = function (req, thingId, property) {
+  return this.getThing(thingId).readProperty(req, property)
 }
 
-module.exports.invokeAction = function (thingId, action, data) {
-  return this.getThing(thingId).invokeAction(action, data)
+module.exports.invokeAction = function (req, thingId, action, data) {
+  return this.getThing(thingId).invokeAction(req, action, data)
 }

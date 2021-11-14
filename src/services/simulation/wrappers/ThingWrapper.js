@@ -1,4 +1,3 @@
-//interface
 const eventService = require('../../event-service')
 class ThingWrapper {
 
@@ -16,13 +15,13 @@ class ThingWrapper {
   }
 
 
-  readProperty(propertyName) {
-    var res = this.mapProperty(propertyName)
+  readProperty(req, propertyName) {
+    var res = this.mapProperty(req, propertyName)
     return res
   }
 
-  invokeAction(actionName, data) {
-    var res = this.mapAction(actionName, data)
+  invokeAction(req, actionName, data) {
+    var res = this.mapAction(req, actionName, data)
     if (this.actionEvent) {
       this.publishUpdate()
     }
