@@ -13,6 +13,7 @@ exports.action = function (f) {
     try {
       printSeparator()
       console.log(`${req.method} ${req.originalUrl}`)
+      console.log("Agent:", req.headers['x-agent-id'])
       console.log('Body:', req.body)
       printSeparator()
       let result = (f ? await f(req) : notImplemented()) || notImplemented()
