@@ -1,7 +1,6 @@
 componentFactory.BasicThing = {
   create: async (td) => {
     var thing = new BasicThing(td)
-    await thing.load()
     return thing
   }
 }
@@ -29,7 +28,6 @@ class BasicThing extends ThingComponentInterface{
 
 
   _createDOM() {
-    console.log("Rendering " + this.td.title)
     //use this function to render the component and add all of it's behaviour
     var $thingDiv = $(`<div id="${this.td.title}" class="row thing-row">`).appendTo($things)
 

@@ -11,14 +11,14 @@ const { notFound } = require('./utils/action-results')
 exports.startServer = async function (port) {
   const app = express()
   const server = require('http').createServer(app)
+  
+  simulation.start(workspace);
 
   const io = require('socket.io')(server)
   io.on('connection', function (socket) {
     console.log('Socket open')
     eventService.onConnection(socket)
   })
-
-  simulation.start(workspace);
 
   //bodyparser
   var rawBodySaver = function (req, res, buf, encoding) {

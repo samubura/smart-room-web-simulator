@@ -18,6 +18,7 @@ async function generateInterface(){
   }
 
   registerUpdateManager(components)
+  client.post('/simulation/publish-update');
 }
 
 async function getThingDescription(uri){

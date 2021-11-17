@@ -1,3 +1,5 @@
+const simulation = require('./simulation')
+
 let io = undefined
 
 exports.publish = function (eventName, body) {

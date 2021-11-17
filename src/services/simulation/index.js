@@ -53,3 +53,12 @@ module.exports.readProperty = function (req, thingId, property) {
 module.exports.invokeAction = function (req, thingId, action, data) {
   return this.getThing(thingId).invokeAction(req, action, data)
 }
+
+module.exports.publishUpdate = function(){
+  if(environment){
+    environment.publishUpdate()
+  }
+  for (t in simulationThings) {
+    simulationThings[t].publishUpdate()
+  }
+}

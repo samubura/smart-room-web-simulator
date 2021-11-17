@@ -1,7 +1,6 @@
 componentFactory.Lamp = {
   create: async (td) => {
     var thing = new Lamp(td)
-    await thing.load()
     return thing
   }
 }
