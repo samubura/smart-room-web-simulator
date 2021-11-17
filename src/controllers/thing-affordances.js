@@ -1,6 +1,6 @@
 const simulation = require('../services/simulation')
 const {publish} = require('../services/event-service')
-const { ok, notFound, badRequest, internalServerError } = require('../utils/action-results')
+const { ok, notFound, error} = require('../utils/action-results')
 const fs = require('fs')
 const path = require('path')
 
@@ -31,6 +31,7 @@ function findActionName(thingId, reqForm){
   return name;
 }
 
+
 function getAgentId(req){
   return req.headers['x-agent-id']
 }
@@ -47,16 +48,11 @@ exports.readProperty = function (req) {
     if(!propertyName){
       return notFound(`${req.url} not found`)
     }
-
-    logInteraction(req, propertyName, "read property")
     var res = simulation.readProperty(req, req.params.thingId, propertyName)
-    
+    logInteraction(req, propertyName, "read property")
     return ok(res)
-  } catch (error) {
-    if (error.code == 404) {
-      return notFound(error.message)
-    }
-    return internalServerError(error)
+  } catch (e) {
+    return error(e);
   }
 }
 
@@ -66,18 +62,10 @@ exports.invokeAction = function (req) {
     if(!actionName){
       return notFound(`${req.url} not found`)
     }
-
-    logInteraction(req, actionName, "invoked action")
-
     var res = simulation.invokeAction(req, req.params.thingId, actionName, req.body)
+    logInteraction(req, actionName, "invoked action")
     return ok(res)
-  } catch (error) {
-    if (error.code == 404) {
-      return notFound(error.message)
-    }
-    if (error.code == 400) {
-      return badRequest(error.message)
-    }
-    return internalServerError(error)
+  } catch (e) {
+    return error(e);
   }
 }

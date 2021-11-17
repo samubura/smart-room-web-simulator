@@ -35,6 +35,20 @@ class ThingWrapper {
     }
   }
 
+  unauthorized(operation,affordanceName) {
+    throw {
+      code: 401,
+      message: `Authorization is required to ${operation} ${affordanceName} on thing ${this.id}`
+    }
+  }
+
+  forbidden(operation,affordanceName) {
+    throw {
+      code: 403,
+      message: `Forbidden ${operation} of ${affordanceName} on thing ${this.id}`
+    }
+  }
+
   actionNotFound(actionName) {
     throw {
       code: 404,

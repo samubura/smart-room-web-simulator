@@ -6,6 +6,8 @@ function jsonResult(status, body) {
   }
 }
 
+exports.error = error => jsonResult(error.code || 500, {error: error.message || "Generic error"})
+
 exports.ok = body => jsonResult(200, body)
 
 exports.created = body => jsonResult(201, body)

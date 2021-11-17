@@ -1,34 +1,21 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
-    "@type": "Lamp",
-    "title": "secure_lamp",
-    "base": "http://localhost:3000/affordances/smart-room/secure_lamp",
+    "@type": "SecureLamp",
+    "title": "secure-lamp",
+    "base": "http://localhost:3000/affordances/smart-room/secure-lamp",
     "securityDefinitions": {
-        "basic": {
-            "scheme": "basic",
+        "key": {
+            "scheme": "api-key",
             "name": "x-credentials",
             "in": "header"
         }
     },
     "security": [
-        "basic"
+        "key"
     ],
     "properties": {
         "state": {
-            "type": "object",
-            "properties": {
-                "on": { 
-                    "type": "boolean"
-                },
-                "intensity": {
-                    "type": "object",
-                    "properties":{
-                        "value": {
-                            "type": "number"
-                        }
-                    }
-                }
-            },
+            "type": "boolean",
             "forms": [
                 {
                     "href": "/state",
@@ -76,12 +63,9 @@
                 "type": "object",
                 "properties": {
                     "color": {
-                        "type": "object",
-                        "properties": {
-                            "rgb": {
-                               "type": "string"
-                            }
-                        }
+                        "type": "string",
+                        "readOnly": false,
+                        "writeOnly": false
                     }
                 },
                 "required": [
