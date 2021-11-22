@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 const eventService = require('./services/event-service')
 const simulation = require('./services/simulation')
@@ -8,9 +9,12 @@ const { workspace } = require('../config')
 const { notFound } = require('./utils/action-results')
 
 
+
 exports.startServer = async function (port) {
   const app = express()
   const server = require('http').createServer(app)
+
+  app.use(cors());
   
   simulation.start(workspace);
 

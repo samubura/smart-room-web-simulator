@@ -34,8 +34,8 @@ function getRenderOrder(type){
 async function generateComponent(thing){
   var type = thing.td['@type']
   var thingComponent = undefined
-  if(type in componentFactory){
-    thingComponent = await componentFactory[type].create(thing.td)
+  if(typeToComponent[type] in componentFactory){
+    thingComponent = await componentFactory[typeToComponent[type]].create(thing.td)
   } else {
     thingComponent = await componentFactory["BasicThing"].create(thing.td);
   }

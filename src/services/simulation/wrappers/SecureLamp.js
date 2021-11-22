@@ -22,7 +22,7 @@ class SecureLampWrapper extends ThingWrapper {
     this._checkAuthorization(req, "read", propertyName)
     switch (propertyName) {
       case 'color':
-        return this.thing.getColor()
+        return {rgb: this.thing.getColor()}
       case 'state':
         return this.thing.getState()
       default:

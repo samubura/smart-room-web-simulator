@@ -45,12 +45,13 @@ class BasicThing extends ThingComponentInterface{
       state[p] = null;
     }
     this.update(state)
-
+/*
     for (var a in this.td.actions) {
       this.$actionRow.append(`
         <button class="btn btn-secondary">${a}</button>
       `)
     }
+    */
   }
 
 }

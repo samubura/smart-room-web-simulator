@@ -29,7 +29,12 @@
             "writeOnly": false
         },
         "color": {
-            "type": "string",
+            "type": "object",
+            "properties": {
+                "hex" : {
+                    "type": "string"
+                }
+            },
             "forms": [
                 {
                     "href": "/color",
