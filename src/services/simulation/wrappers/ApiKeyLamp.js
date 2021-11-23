@@ -1,7 +1,7 @@
 const Lamp = require("../../../models/Lamp");
 const ThingWrapper = require("./ThingWrapper");
 
-class SecureLampWrapper extends ThingWrapper {
+class ApiKeyLampWrapper extends ThingWrapper {
 
   constructor(id, env) {
     super(id, env, false)
@@ -50,4 +50,4 @@ class SecureLampWrapper extends ThingWrapper {
 
 }
 
-module.exports.create = (id, env) => new SecureLampWrapper(id, env)
+module.exports.create = (id, env) => new ApiKeyLampWrapper(id, env)

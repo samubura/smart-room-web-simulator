@@ -1,16 +1,17 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
-    "@type": "Lamp",
-    "id": "http://localhost:3000/workspaces/smart-room/things/lamp-1",
-    "title": "lamp-1",
-    "base": "http://localhost:3000/affordances/smart-room/lamp-1/",
+    "@type": "BasicLamp",
+    "title": "basic-lamp",
+    "id": "http://localhost:3000/workspaces/smart-room/things/basic-lamp",
+    "base": "http://localhost:3000/affordances/smart-room/basic-lamp/",
     "securityDefinitions": {
-        "nosec_sc": {
-            "scheme": "nosec"
+        "basic": {
+            "scheme": "basic",
+            "in": "header"
         }
     },
     "security": [
-        "nosec_sc"
+        "basic"
     ],
     "properties": {
         "state": {
@@ -28,7 +29,12 @@
             "writeOnly": false
         },
         "color": {
-            "type": "string",
+            "type": "object",
+            "properties": {
+                "hex" : {
+                    "type": "string"
+                }
+            },
             "forms": [
                 {
                     "href": "color",

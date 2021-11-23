@@ -11,7 +11,7 @@ function findPropertyName(thingId, reqForm){
   var name = undefined
   for(p in td.properties){
     var form = td.properties[p].forms[0].href
-    if(form == '/'+reqForm){
+    if(form == reqForm){
       name = p
     }
   }
@@ -24,7 +24,7 @@ function findActionName(thingId, reqForm){
   var name = undefined
   for(p in td.actions){
     var form = td.actions[p].forms[0].href
-    if(form == '/'+reqForm){
+    if(form == reqForm){
       name = p
     }
   }
