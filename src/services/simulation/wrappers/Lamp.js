@@ -4,7 +4,7 @@ const ThingWrapper = require("./ThingWrapper");
 class LampWrapper extends ThingWrapper {
 
   constructor(id, env) {
-    super(id, env, false)
+    super(id, env, 0)
 
     //since Lamp is not a situated thing ignore the env
     this.thing = new Lamp()

@@ -4,8 +4,8 @@ const ThingWrapper = require('./ThingWrapper')
 
 class EnvironmentWrapper extends ThingWrapper {
 
-  constructor(id, env, tickEvent = true, actionEvent = true) {
-    super(id, env, tickEvent, actionEvent)
+  constructor(id, env, tickRate=1, actionEvent = true) {
+    super(id, env, tickRate, actionEvent)
   }
 
   publishThing() {

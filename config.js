@@ -1,4 +1,4 @@
 module.exports = {
-  workspace: 'smart-room',
+  workspace: 'lamp-wars',
   ticksPerSecond: 1
 }

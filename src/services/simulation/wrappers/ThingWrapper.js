@@ -4,13 +4,14 @@ class ThingWrapper {
   thing = undefined
   id = undefined
   env = undefined
-  tickEvent = true
+  eventTickRate = 1
+  ticksFromLastEvent = 0;
   actionEvent = true
 
-  constructor(id, env, tickEvent = true, actionEvent = true) {
+  constructor(id, env, eventTickRate = 1, actionEvent = true) {
     this.id = id
     this.env = env
-    this.tickEvent = tickEvent
+    this.eventTickRate = eventTickRate
     this.actionEvent = actionEvent
   }
 
@@ -71,9 +72,11 @@ class ThingWrapper {
   }
 
   tick() {
+    this.ticksFromLastEvent ++;
     this.thing.tick()
-    if (this.tickEvent) {
+    if (this.eventTickRate == this.ticksFromLastEvent){
       this.publishUpdate()
+      this.ticksFromLastEvent = 0;
     }
   }
 

@@ -1,0 +1,106 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "@type": "ApiKeyLamp",
+    "title": "apikey-lamp",
+    "id": "http://localhost:3000/workspaces/smart-room/things/apikey-lamp",
+    "base": "http://localhost:3000/affordances/smart-room/apikey-lamp/",
+    "securityDefinitions": {
+        "key": {
+            "scheme": "apikey",
+            "name": "x-credentials",
+            "in": "header"
+        }
+    },
+    "security": [
+        "key"
+    ],
+    "properties": {
+        "state": {
+            "type": "boolean",
+            "forms": [
+                {
+                    "href": "state",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": false,
+            "writeOnly": false
+        },
+        "color": {
+            "type": "object",
+            "properties": {
+                "hex" : {
+                    "type": "string"
+                }
+            },
+            "forms": [
+                {
+                    "href": "color",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": false,
+            "writeOnly": false
+        }
+    },
+    "actions": {
+        "toggle": {
+            "output": {
+                "type":"boolean"
+            },
+            "forms": [
+                {
+                    "href": "toggle",
+                    "op": "invokeaction",
+                    "contentType": "application/json"
+                }
+            ],
+            "safe": false,
+            "idempotent": false
+        },
+        "setColor": {
+            "input": {
+                "type": "object",
+                "properties": {
+                    "color": {
+                        "type": "string",
+                        "readOnly": false,
+                        "writeOnly": false
+                    }
+                },
+                "required": [
+                    "color"
+                ],
+                "readOnly": false,
+                "writeOnly": false
+            },
+            "output": {
+                "type": "object",
+                "properties": {
+                    "color": {
+                        "type": "string",
+                        "readOnly": false,
+                        "writeOnly": false
+                    }
+                },
+                "readOnly": false,
+                "writeOnly": false
+            },
+            "forms": [
+                {
+                    "href": "color",
+                    "op": "invokeaction",
+                    "contentType": "application/json"
+                }
+            ],
+            "safe": false,
+            "idempotent": false
+        }
+    }
+}

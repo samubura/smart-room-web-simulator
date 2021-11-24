@@ -4,7 +4,7 @@ const ThingWrapper = require("./ThingWrapper");
 class ApiKeyLampWrapper extends ThingWrapper {
 
   constructor(id, env) {
-    super(id, env, false)
+    super(id, env, 0)
 
     this.thing = new Lamp()
   }
