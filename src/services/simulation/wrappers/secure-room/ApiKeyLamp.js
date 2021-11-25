@@ -1,6 +1,6 @@
-const Lamp = require("../../../models/Lamp");
-const SimulationThingWrapper = require("./SimulationThingWrapper");
-const exceptions = require('../../../utils/thing-exceptions')
+const Lamp = require("../../../../models/Lamp");
+const SimulationThingWrapper = require("../SimulationThingWrapper");
+const exceptions = require('../../../../utils/thing-exceptions')
 
 class ApiKeyLampWrapper extends SimulationThingWrapper {
 

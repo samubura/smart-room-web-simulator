@@ -18,11 +18,11 @@ async function simulate() {
 }
 
 
-module.exports.start = function (tdFolder) {
-  var things = fs.readdirSync(path.join('..', 'td', tdFolder));
+module.exports.start = function (workspace) {
+  var things = fs.readdirSync(path.join('..', 'td', workspace));
 
   //if there is an environment definition
-  var envFile = path.join('..', 'td', tdFolder, 'environment.json')
+  var envFile = path.join('..', 'td', workspace, 'environment.json')
   if (fs.existsSync(envFile)) {
     //Instantiate the environment as any WrappedThing that will be updated first and passed to the other ones
     var envTD = JSON.parse(fs.readFileSync(envFile, 'utf8'));
@@ -34,9 +34,9 @@ module.exports.start = function (tdFolder) {
 
   //Instantiate the things and sync initialization
   things.forEach(t => {
-    var td = JSON.parse(fs.readFileSync(path.join('..', 'td', tdFolder, t), 'utf8'));
+    var td = JSON.parse(fs.readFileSync(path.join('..', 'td', workspace, t), 'utf8'));
     var id = td.title
-    var thing = require('./wrappers/' + td['@type']).create(id, environment)
+    var thing = require('./wrappers/'+workspace+'/'+ td['@type']).create(id, environment)
     thing.init(environment).then(() => {
       simulationThings[id] = thing
     });

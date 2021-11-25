@@ -4,9 +4,7 @@ const ws = require('../../config').workspace
 
 module.exports = mapControllerRoutes('thing-descriptions', function (app, controller) {
   app.route('/workspaces')
-    .get(action((req) => {
-      return ok([{id: ws, uri:'/workspaces/'+ws+'/things/'}])
-    }))
+    .get(action(controller.getWorkspaces))
 
   app.route('/workspaces/'+ws+'/things/')
     .get(action(controller.getThings))

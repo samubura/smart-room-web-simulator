@@ -24,3 +24,9 @@ exports.getThings = function (req) {
   });
   return ok(things)
 }
+
+//return only the active workspace right now
+exports.getWorkspaces = function(req){
+  var base = "http://" + req.headers.host
+  return ok([{id: workspace, uri:`${base}/workspaces/${workspace}`}])
+}
