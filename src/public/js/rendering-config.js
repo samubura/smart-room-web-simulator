@@ -2,5 +2,7 @@ const renderOrder = [];
 
 const typeToComponent = {
   Lamp: "Lamp",
-  SecureLamp: "Lamp"
+  ApiKeyLamp: "Lamp",
+  BasicLamp: "Lamp",
+  HueLamp: "Lamp"
 }
