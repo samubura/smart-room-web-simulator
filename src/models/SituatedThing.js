@@ -1,6 +1,6 @@
 const ThingInterface = require("./ThingInterface");
 
-class AbstractSituatedThing extends ThingInterface {
+class SituatedThing extends ThingInterface {
 
   environment = undefined
 
@@ -9,3 +9,5 @@ class AbstractSituatedThing extends ThingInterface {
   }
 
 }
+
+module.exports = SituatedThing

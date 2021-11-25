@@ -1,41 +1,43 @@
 const Lamp = require("../../../models/Lamp");
-const ThingWrapper = require("./ThingWrapper");
+const SimulationThingWrapper = require("./SimulationThingWrapper");
+const exceptions = require('../../../utils/thing-exceptions')
 
-class LampWrapper extends ThingWrapper {
+class LampWrapper extends SimulationThingWrapper {
 
   constructor(id, env) {
     super(id, env, 0)
+  }
 
+  async init(env) {
     //since Lamp is not a situated thing ignore the env
     this.thing = new Lamp()
   }
 
-
-  mapProperty(req, propertyName) {
+  async mapProperty(req, propertyName) {
     switch (propertyName) {
       case 'color':
-        return this.thing.getColor()
+        return await this.thing.getColor()
       case 'state':
-        return this.thing.getState()
+        return await this.thing.getState()
       default:
-        this.propertyNotFound(propertyName)
+        exceptions.propertyNotFound(propertyName)
     }
   }
 
-  mapAction(req, actionName, data) {
+  async mapAction(req, actionName, data) {
     switch (actionName) {
       case 'setColor':
         if (data.color) {
-          this.thing.setColor(data.color)
-          return {color: this.thing.getColor()}
+          await this.thing.setColor(data.color)
+          return await this.thing.getColor();
         } else {
-          this.badInput(actionName)
+          exceptions.badInput(actionName)
         }
-        case 'toggle': 
-          this.thing.toggle()
-          return this.thing.getState()
+        case 'toggle':
+          await this.thing.toggle()
+          return await this.thing.getState();
         default:
-          this.actionNotFound(actionName)
+          exceptions.actionNotFound(actionName)
     }
   }
 

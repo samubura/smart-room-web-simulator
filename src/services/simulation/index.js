@@ -5,14 +5,14 @@ var simulationThings = {}
 var environment = undefined; //TODO change
 
 
-function simulate() {
+async function simulate() {
   //update the env
   if (environment) {
-    environment.tick()
+    await environment.tick()
   }
   //update the things
   for (t in simulationThings) {
-    simulationThings[t].tick()
+    await simulationThings[t].tick()
   }
   setTimeout(simulate, 1000 / config.ticksPerSecond)
 }
@@ -32,12 +32,14 @@ module.exports.start = function (tdFolder) {
     environment = undefined;
   }
 
-  //Instantiate the things
+  //Instantiate the things and sync initialization
   things.forEach(t => {
     var td = JSON.parse(fs.readFileSync(path.join('..', 'td', tdFolder, t), 'utf8'));
     var id = td.title
     var thing = require('./wrappers/' + td['@type']).create(id, environment)
-    simulationThings[id] = thing
+    thing.init(environment).then(() => {
+      simulationThings[id] = thing
+    });
   })
   simulate();
 }
@@ -46,19 +48,19 @@ module.exports.getThing = function (thingId) {
   return simulationThings[thingId]
 }
 
-module.exports.readProperty = function (req, thingId, property) {
-  return this.getThing(thingId).readProperty(req, property)
+module.exports.readProperty = async function (req, thingId, property) {
+  return await this.getThing(thingId).readProperty(req, property)
 }
 
-module.exports.invokeAction = function (req, thingId, action, data) {
-  return this.getThing(thingId).invokeAction(req, action, data)
+module.exports.invokeAction = async function (req, thingId, action, data) {
+  return await this.getThing(thingId).invokeAction(req, action, data)
 }
 
-module.exports.publishUpdate = function(){
+module.exports.publishUpdate = async function(){
   if(environment){
-    environment.publishUpdate()
+    await environment.publishUpdate()
   }
   for (t in simulationThings) {
-    simulationThings[t].publishUpdate()
+    await simulationThings[t].publishUpdate()
   }
 }

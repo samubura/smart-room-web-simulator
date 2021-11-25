@@ -42,13 +42,13 @@ function logInteraction(req, affordance, type) {
 }
 
 
-exports.readProperty = function (req) {
+exports.readProperty = async function (req) {
   try {
     var propertyName = findPropertyName(req.params.thingId, req.params.form)
     if(!propertyName){
       return notFound(`${req.url} not found`)
     }
-    var res = simulation.readProperty(req, req.params.thingId, propertyName)
+    var res = await simulation.readProperty(req, req.params.thingId, propertyName)
     logInteraction(req, propertyName, "read property")
     return ok(res)
   } catch (e) {
@@ -56,13 +56,13 @@ exports.readProperty = function (req) {
   }
 }
 
-exports.invokeAction = function (req) {
+exports.invokeAction = async function (req) {
   try {
     var actionName = findActionName(req.params.thingId, req.params.form)
     if(!actionName){
       return notFound(`${req.url} not found`)
     }
-    var res = simulation.invokeAction(req, req.params.thingId, actionName, req.body)
+    var res = await simulation.invokeAction(req, req.params.thingId, actionName, req.body)
     logInteraction(req, actionName, "invoked action")
     return ok(res)
   } catch (e) {
