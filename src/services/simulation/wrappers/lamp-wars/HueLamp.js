@@ -15,7 +15,7 @@ class LampWrapper extends ThingWrapper {
     super(id, 5)
   }
 
-  async init(env) {
+  async init() {
     let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
     let res = await axios.get(url)
     let state = res.data.state
@@ -24,6 +24,7 @@ class LampWrapper extends ThingWrapper {
   }
 
   async publishUpdate(){
+    await this.init()
     eventService.publish("thing-update", {
       id: this.id,
       state: {
