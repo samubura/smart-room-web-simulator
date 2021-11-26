@@ -1,4 +1,3 @@
-const eventService = require('../../event-service')
 const exceptions = require('../../../utils/thing-exceptions')
 
 class ThingWrapper {
@@ -7,7 +6,7 @@ class ThingWrapper {
   ticksFromLastEvent = 0;
   actionEvent = true
 
-  constructor(id, eventTickRate = 1, actionEvent = true) {
+  constructor(id, eventTickRate = 0, actionEvent = true) {
     this.id = id
     this.eventTickRate = eventTickRate
     this.actionEvent = actionEvent
@@ -39,7 +38,6 @@ class ThingWrapper {
   }
 
   async publishUpdate() {
-    //publish the state of the thing
   }
 
   //abstract

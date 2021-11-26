@@ -7,7 +7,7 @@ class SimulationThingWrapper extends ThingWrapper {
   thing = undefined
   env = undefined
 
-  constructor(id, env, eventTickRate = 1, actionEvent = true) {
+  constructor(id, env, eventTickRate = 0, actionEvent = true) {
     super(id, eventTickRate, actionEvent)
     this.env = env;
   }
@@ -19,13 +19,9 @@ class SimulationThingWrapper extends ThingWrapper {
   //override
   async tick() {
     if (this.thing) {
-      this.ticksFromLastEvent++;
       this.thing.tick()
-      if (this.eventTickRate == this.ticksFromLastEvent) {
-        await this.publishUpdate()
-        this.ticksFromLastEvent = 0;
-      }
     }
+    await super.tick()
   }
 
   //override

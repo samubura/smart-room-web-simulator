@@ -4,58 +4,33 @@ const axios = require('axios')
 const hueBridgeIP = "http://10.2.2.130";
 const hueDevID = "nGIedUst7D--LUn68Kxynwi1Valsc5Ex1D1pRZ7M";
 const lampIndex = 5
+const eventService = require("../../../event-service")
 
 class LampWrapper extends ThingWrapper {
 
   lampState = false;
   lampColor = "#ffffcc"
 
-  constructor(id, env) {
-    super(id, env, 0)
+  constructor(id) {
+    super(id, 5)
   }
 
   async init(env) {
-  }
-
-  async _getColorFromLamp(){
     let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
     let res = await axios.get(url)
     let state = res.data.state
     this.lampColor = HueColorToHex(state.hue, state.sat, state.bri)
-    return this.lampColor
+    this.lampState = state.on
   }
 
-  async _getStateFromLamp(){
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
-    let res = await axios.get(url)
-    this.lampState = res.data.state.on
-    return this.lampState
-  }
-
-  //trick to set the right color even if it was changed when the lamp was off
-  async _setLampState(state){
-    let color = HexToHueColor(this.lampColor)
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}/state`
-    let body = {
-      on: state,
-      hue: color[0],
-      sat: color[1],
-      bri:color[2]
-    }
-    await axios.put(url, body)
-  }
-
-  async _setLampColor(hex){
-    let color = HexToHueColor(hex)
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}/state`
-    let body = {
-      hue: color[0],
-      sat: color[1],
-      bri:color[2]
-    }
-    await axios.put(url, body)
-    this.lampColor = hex
-    return hex;
+  async publishUpdate(){
+    eventService.publish("thing-update", {
+      id: this.id,
+      state: {
+        color: this.lampColor,
+        state: this.lampState
+      }
+    })
   }
 
   async mapProperty(req, propertyName) {
@@ -78,12 +53,54 @@ class LampWrapper extends ThingWrapper {
           exceptions.badInput(actionName)
         }
         case 'toggle':
-          var state = await this._getStateFromLamp()
-          await this._setLampState(!state);
-          return !state
+          return await this._toggleLampState();
         default:
           exceptions.actionNotFound(actionName)
     }
+  }
+
+  async _getColorFromLamp(){
+    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
+    let res = await axios.get(url)
+    let state = res.data.state
+    this.lampColor = HueColorToHex(state.hue, state.sat, state.bri)
+    return this.lampColor
+  }
+
+  async _getStateFromLamp(){
+    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
+    let res = await axios.get(url)
+    this.lampState = res.data.state.on
+    return this.lampState
+  }
+
+  //trick to set the right color even if it was changed when the lamp was off
+  async _toggleLampState(){
+    await this._getStateFromLamp()
+    this.lampState = !this.lampState
+    let color = HexToHueColor(this.lampColor)
+    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}/state`
+    let body = {
+      on: this.lampState,
+      hue: color[0],
+      sat: color[1],
+      bri:color[2]
+    }
+    await axios.put(url, body)
+    return this.lampState
+  }
+
+  async _setLampColor(hex){
+    let color = HexToHueColor(hex)
+    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}/state`
+    let body = {
+      hue: color[0],
+      sat: color[1],
+      bri:color[2]
+    }
+    await axios.put(url, body)
+    this.lampColor = hex
+    return hex;
   }
 
 }
