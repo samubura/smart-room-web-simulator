@@ -31,7 +31,8 @@ exports.startServer = async function (port) {
     }
   }
   app.use(bodyParser.json({
-    verify: rawBodySaver
+    verify: rawBodySaver,
+    strict: false
   }));
   app.use(bodyParser.urlencoded({
     verify: rawBodySaver,

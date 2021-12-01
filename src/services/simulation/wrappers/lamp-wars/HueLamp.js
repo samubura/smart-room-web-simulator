@@ -41,7 +41,7 @@ class LampWrapper extends ThingWrapper {
       case 'state':
         return await this._getStateFromLamp()
       default:
-        exceptions.propertyNotFound(propertyName)
+        exceptions.propertyNotFound(this.id, propertyName)
     }
   }
 
@@ -51,12 +51,12 @@ class LampWrapper extends ThingWrapper {
         if (data.color) {
           return await this._setLampColor(data.color)
         } else {
-          exceptions.badInput(actionName)
+          exceptions.badInput(this.id, actionName)
         }
         case 'toggle':
           return await this._toggleLampState();
         default:
-          exceptions.actionNotFound(actionName)
+          exceptions.actionNotFound(this.id, actionName)
     }
   }
 

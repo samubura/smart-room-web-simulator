@@ -1,0 +1,56 @@
+{
+  "@context": "https://www.w3.org/2019/wot/td/v1",
+  "title": "tractor1",
+  "@type": "SoilCheckerTractor",
+  "id": "http://localhost:3000/workspaces/smart-farming/things/tractor1",
+  "base": "http://localhost:3000/affordances/smart-farming/tractor1/",
+  "securityDefinitions": {
+    "nosec_sc": {
+      "scheme": "nosec"
+    }
+  },
+  "security": "nosec_sc",
+  "properties": {
+    "soilCondition": {
+      "title": "Soil condition",
+      "observable": false,
+      "readOnly": true,
+      "type": "object",
+	  "properties":{
+		"ph":{"type":"integer", "minimum":0, "maximum":255},
+		"moisture":{"type":"integer", "minimum":0, "maximum":255},
+		"density":{"type":"integer", "minimum":0, "maximum":255},
+		"nitrate":{"type":"integer", "minimum":0, "maximum":255}
+	  },	 
+      "forms": [
+        {
+          "op": [
+            "readproperty"
+          ],
+          "href": "/properties/soilcondition"
+        }
+      ]
+    }
+  },
+  "actions": {
+    "moveTo": {
+      "title": "move to position",
+      "input":{
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8
+      },
+      "output":{
+        "type": "number"
+      },
+      "forms": [
+        {
+          "href": "moveto",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    }
+	},
+  "events": {}
+}
