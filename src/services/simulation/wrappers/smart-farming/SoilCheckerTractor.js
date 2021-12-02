@@ -4,7 +4,7 @@ const axios = require('axios')
 const eventService = require("../../../event-service")
 
 const tractorIp = "http://10.2.2.157";
-const startingPosition = 0
+const startingPosition = -1
 const startingDirection = 0
 
 

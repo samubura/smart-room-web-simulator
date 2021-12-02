@@ -11,23 +11,41 @@ const axios = require('axios')
 class Tractor extends ThingWrapper {
 
   position
+  homePosition
   direction
   ip = "";
 
   constructor(id, ticksFromLastEvent, actionEvent, ip, startingPosition, startingDirection) {
     super(id, ticksFromLastEvent, actionEvent)
     this.ip = ip
+    this.homePosition = startingPosition
     this.position = startingPosition
     this.direction = startingDirection
   }
 
+  async mapProperty(req, propertyName) {
+    switch(propertyName) {
+      case 'position':
+        return this.position
+      case 'direction':
+        return this.direction
+      default:
+        exceptions.propertyNotFound(this.id, propertyName)
+    }
+  }
+
   async mapAction(req, actionName, data) {
     switch (actionName) {
-      case 'moveTo':
+      case 'moveToField':
+        if(typeof data == "object" && Object.keys(data).length === 0){
+          exceptions.badInput(this.id, "moveTo")
+        }
         if(data==null || data < 0 || data > 8){
           exceptions.badInput(this.id, "moveTo")
         }
         return this.move(this.position, data)
+      case 'goHome':
+        return this.move(this.position, this.homePosition)
       default:
         exceptions.actionNotFound(this.id, actionName)
     }

@@ -33,7 +33,7 @@ class SimulationThingWrapper extends ThingWrapper {
   }
 
   //abstract
-  async mapProperty(propertyName) {
+  async mapProperty(req, propertyName) {
     exceptions.propertyNotFound(propertyName)
   }
 
