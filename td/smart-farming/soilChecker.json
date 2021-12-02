@@ -38,31 +38,11 @@
           "href": "direction"
         }
       ]
-    },
-    "soilCondition": {
-      "title": "Soil condition",
-      "observable": false,
-      "readOnly": true,
-      "type": "object",
-      "properties":{
-        "ph":{"type":"integer", "minimum":0, "maximum":255},
-        "moisture":{"type":"integer", "minimum":0, "maximum":255},
-        "density":{"type":"integer", "minimum":0, "maximum":255},
-        "nitrate":{"type":"integer", "minimum":0, "maximum":255}
-      },	 
-      "forms": [
-        {
-          "op": [
-            "readproperty"
-          ],
-          "href": "soilcondition"
-        }
-      ]
     }
   },
   "actions": {
     "moveToField": {
-      "description": "move to field",
+      "description": "Make the tractor move to a field",
       "input":{
             "type": "integer",
             "minimum": 0,
@@ -80,7 +60,7 @@
       ]
     },
     "goHome": {
-      "description": "go home",
+      "description": "Make the tractor go back home",
       "output":{
         "type": "number"
       },
@@ -91,7 +71,24 @@
           "contentType": "application/json"
         }
       ]
+    },
+    "checkSoilHumidity": {
+      "description": "Check the soil humidity and return the result.",
+      "output":{
+        "type": "object",
+        "properties": {
+          "humidity": {"type": "integer"}
+        },
+        "required": ["humidity"]
+      },
+      "forms": [
+        {
+          "href": "checksoil",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
     }
-	},
+  },
   "events": {}
 }
