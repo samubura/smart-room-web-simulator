@@ -75,6 +75,11 @@ class Tractor extends ThingWrapper {
   }
 
   move(start, stop){
+    if(stop == 3){
+      stop = 5
+    } else if(stop == 5){
+      stop = 3
+    }
     let x = stop%3 - start%3
     let y = Math.floor(stop/3) - Math.floor(start/3)
     let steps = []
