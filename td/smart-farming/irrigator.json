@@ -2,8 +2,8 @@
   "@context": "https://www.w3.org/2019/wot/td/v1",
   "title": "irrigator",
   "@type": "IrrigatorTractor",
-  "id": "http://10.2.2.187/workspaces/smart-farming/things/irrigator",
-  "base": "http://10.2.2.187/affordances/smart-farming/irrigator/",
+  "id": "http://10.2.2.187:3000/workspaces/smart-farming/things/irrigator",
+  "base": "http://10.2.2.187:3000/affordances/smart-farming/irrigator/",
   "securityDefinitions": {
     "nosec_sc": {
       "scheme": "nosec"
