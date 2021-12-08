@@ -1,9 +1,9 @@
 {
   "@context": "https://www.w3.org/2019/wot/td/v1",
-  "title": "irrigator",
-  "@type": "IrrigatorTractor",
-  "id": "http://10.2.2.187/workspaces/smart-farming/things/irrigator",
-  "base": "http://10.2.2.187/affordances/smart-farming/irrigator/",
+  "title": "soilChecker",
+  "@type": "SoilCheckerTractor",
+  "id": "http://localhost:3000/workspaces/smart-farming/things/soilChecker",
+  "base": "http://localhost:3000/affordances/smart-farming/soilChecker/",
   "securityDefinitions": {
     "nosec_sc": {
       "scheme": "nosec"
@@ -36,20 +36,6 @@
             "readproperty"
           ],
           "href": "direction"
-        }
-      ]
-    },
-    "waterLevel": {
-      "description": "The current water capacity of the tractor",
-      "observable": false,
-      "readOnly": true,
-      "type": "integer",
-      "forms": [
-        {
-          "op": [
-            "readproperty"
-          ],
-          "href": "waterlevel"
         }
       ]
     }
@@ -86,24 +72,23 @@
         }
       ]
     },
-    "irrigate": {
-      "description": "Irrigate a field for 3 seconds. Can be used only if waterLevel is > 0",
+    "checkSoilHumidity": {
+      "description": "Check the soil humidity and return the result.",
+      "output":{
+        "type": "object",
+        "properties": {
+          "humidity": {"type": "integer"}
+        },
+        "required": ["humidity"]
+      },
       "forms": [
         {
-          "href": "irrigate",
-          "op": "invokeaction"
-        }
-      ]
-    },
-    "refillWater": {
-      "description": "Brings back the water at full capacity. Can be used only when at home.",
-      "forms": [
-        {
-          "href": "refill",
-          "op": "invokeaction"
+          "href": "checksoil",
+          "op": "invokeaction",
+          "contentType": "application/json"
         }
       ]
     }
-	},
+  },
   "events": {}
 }

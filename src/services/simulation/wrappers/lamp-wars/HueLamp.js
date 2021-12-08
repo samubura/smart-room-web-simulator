@@ -1,8 +1,8 @@
 const ThingWrapper = require("../ThingWrapper");
 const exceptions = require('../../../../utils/thing-exceptions')
 const axios = require('axios')
-const hueBridgeIP = "http://10.2.2.130";
-const hueDevID = "nGIedUst7D--LUn68Kxynwi1Valsc5Ex1D1pRZ7M";
+const hueBridgeIP = "http://10.2.2.129" //"http://10.2.2.130";
+const hueDevID = "6VSftsxsJsHhcw647q-LrmCfhMO5ogTTrE02XqeQ" //"nGIedUst7D--LUn68Kxynwi1Valsc5Ex1D1pRZ7M";
 const lampIndex = 5
 const eventService = require("../../../event-service")
 

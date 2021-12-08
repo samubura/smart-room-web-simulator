@@ -1,9 +1,9 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
     "@type": "HueLamp",
-    "id": "http://localhost:3000/workspaces/lamp-wars/things/huelamp",
+    "id": "http://10.2.2.187:3000/workspaces/lamp-wars/things/huelamp",
     "title": "huelamp",
-    "base": "http://localhost:3000/affordances/lamp-wars/huelamp/",
+    "base": "http://10.2.2.187:3000/affordances/lamp-wars/huelamp/",
     "securityDefinitions": {
         "nosec_sc": {
             "scheme": "nosec"

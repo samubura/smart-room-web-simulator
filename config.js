@@ -1,4 +1,4 @@
 module.exports = {
-  workspace: 'smart-farming',
+  workspace: 'lamp-wars',
   ticksPerSecond: 1
 }

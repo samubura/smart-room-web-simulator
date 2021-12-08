@@ -1,0 +1,79 @@
+{
+  "@context": "https://www.w3.org/2019/wot/td/v1",
+  "title": "cherrybot",
+  "@type": "RobotArm",
+  "id": "http://localhost:3000/workspaces/spock-block/things/cherrybot",
+  "base": "http://localhost:3000/affordances/spock-block/cherrybot/",
+  "securityDefinitions": {
+    "nosec_sc": {
+      "scheme": "nosec"
+    }
+  },
+  "security": "nosec_sc",
+  "actions": {
+    "initialize": {
+      "forms": [
+        {
+          "href": "initialize",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    },
+    "goHigh": {
+      "forms": [
+        {
+          "href": "go-high",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    },
+    "goPiece": {
+      "forms": [
+        {
+          "href": "go-piece",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    },
+    "goCan": {
+      "forms": [
+        {
+          "href": "go-can",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    },
+    "takePiece": {
+      "forms": [
+        {
+          "href": "take-piece",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    },
+    "openGrip": {
+      "forms": [
+        {
+          "href": "open-grip",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    },
+    "closeGrip": {
+      "forms": [
+        {
+          "href": "close-grip",
+          "op": "invokeaction",
+          "contentType": "application/json"
+        }
+      ]
+    }
+	},
+  "events": {}
+}

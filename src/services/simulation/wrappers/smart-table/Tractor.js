@@ -54,14 +54,14 @@ class Tractor extends ThingWrapper {
   _getForwardSteps(n){
     var steps = []
     for (let i = 0; i < n; i++) {
-      steps.push({axis:0, speed: 2, duration: 1300})
+      steps.push({axis:0, speed: 2, duration: 1500})
     }
     return steps;
   }
 
   _getTurnStep(turn){
     //return {axis:2, speed: 1*turn, duration: 2120}
-    return {axis:2, speed: 2*turn, duration: 738}
+    return {axis:2, speed: 2*turn, duration: 745}
   }
 
   _updateDirection(turn){

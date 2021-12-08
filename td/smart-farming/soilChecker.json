@@ -2,8 +2,8 @@
   "@context": "https://www.w3.org/2019/wot/td/v1",
   "title": "soilChecker",
   "@type": "SoilCheckerTractor",
-  "id": "http://localhost:3000/workspaces/smart-farming/things/soilChecker",
-  "base": "http://localhost:3000/affordances/smart-farming/soilChecker/",
+  "id": "http://10.2.2.187/workspaces/smart-farming/things/soilChecker",
+  "base": "http://10.2.2.187/affordances/smart-farming/soilChecker/",
   "securityDefinitions": {
     "nosec_sc": {
       "scheme": "nosec"
