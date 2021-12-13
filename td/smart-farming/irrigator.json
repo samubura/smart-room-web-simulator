@@ -56,7 +56,7 @@
   },
   "actions": {
     "moveToField": {
-      "description": "Make the tractor move to a field",
+      "description": "Make the tractor move to a field, returns the needed time to reach destination",
       "input":{
             "type": "integer",
             "minimum": 0,
@@ -74,7 +74,7 @@
       ]
     },
     "goHome": {
-      "description": "Make the tractor go back home",
+      "description": "Make the tractor go back home, returns the needed time to reach destination",
       "output":{
         "type": "number"
       },

@@ -19,8 +19,12 @@ class LampWrapper extends ThingWrapper {
     let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
     let res = await axios.get(url)
     let state = res.data.state
-    this.lampColor = HueColorToHex(state.hue, state.sat, state.bri)
+    if(state.on){
+      this.lampColor = HueColorToHex(state.hue, state.sat, state.bri)
+    }
     this.lampState = state.on
+    //console.log(this.lampState)
+    //console.log(this.lampColor)
   }
 
   async publishUpdate(){
@@ -48,30 +52,34 @@ class LampWrapper extends ThingWrapper {
   async mapAction(req, actionName, data) {
     switch (actionName) {
       case 'setColor':
-        if (data.color) {
-          return await this._setLampColor(data.color)
+        if (data) {
+          if(this.isHex(data.color)){
+            await this._setLampColor(data.color)
+            return
+          }
         } else {
           exceptions.badInput(this.id, actionName)
         }
         case 'toggle':
-          return await this._toggleLampState();
+          await this._toggleLampState();
+          return
         default:
           exceptions.actionNotFound(this.id, actionName)
     }
   }
 
+  isHex(string){
+    let regex = new RegExp("^#([A-Fa-f0-9]{6})$");
+    return regex.test(string)
+  }
+
   async _getColorFromLamp(){
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
-    let res = await axios.get(url)
-    let state = res.data.state
-    this.lampColor = HueColorToHex(state.hue, state.sat, state.bri)
+    await this.init()
     return this.lampColor
   }
 
   async _getStateFromLamp(){
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
-    let res = await axios.get(url)
-    this.lampState = res.data.state.on
+    await this.init()
     return this.lampState
   }
 
@@ -92,6 +100,7 @@ class LampWrapper extends ThingWrapper {
   }
 
   async _setLampColor(hex){
+    this.lampColor = hex
     let color = HexToHueColor(hex)
     let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}/state`
     let body = {
@@ -100,8 +109,7 @@ class LampWrapper extends ThingWrapper {
       bri:color[2]
     }
     await axios.put(url, body)
-    this.lampColor = hex
-    return hex;
+    return {color: hex};
   }
 
 }

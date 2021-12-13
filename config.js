@@ -1,4 +1,4 @@
 module.exports = {
-  workspace: 'smart-farming',
+  workspace: 'flatmates',
   ticksPerSecond: 1
 }
