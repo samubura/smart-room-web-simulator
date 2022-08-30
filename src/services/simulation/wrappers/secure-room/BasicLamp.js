@@ -1,11 +1,11 @@
 const Lamp = require("../../../models/Lamp");
-const SimulationThingWrapper = require("./SimulationThingWrapper");
-const exceptions = require('../../../utils/thing-exceptions')
+const exceptions = require('../../../utils/thing-exceptions');
+const SecureThingWrapper = require("../SecureThingWrapper");
 
-class BasicLampWrapper extends SimulationThingWrapper {
+class BasicLampWrapper extends SecureThingWrapper {
 
   constructor(id, env) {
-    super(id, env, 0)
+    super(id, env, 0, true)
   }
 
   async init(env) {
@@ -13,7 +13,7 @@ class BasicLampWrapper extends SimulationThingWrapper {
     this.thing = new Lamp()
   }
 
-  _checkAuthorization(req, operation, property) {
+  async checkAuthorization(req, operation, property) {
     if (!req.headers['authorization']) {
       return exceptions.unauthorized(operation, property)
     }
@@ -23,7 +23,6 @@ class BasicLampWrapper extends SimulationThingWrapper {
   }
 
   async mapProperty(req, propertyName) {
-    _checkAuthorization(req, "read", property)
     switch (propertyName) {
       case 'color':
         return await this.thing.getColor()
@@ -35,7 +34,6 @@ class BasicLampWrapper extends SimulationThingWrapper {
   }
 
   async mapAction(req, actionName, data) {
-    _checkAuthorization(req, "use", property)
     switch (actionName) {
       case 'setColor':
         if (data.color) {

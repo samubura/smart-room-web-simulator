@@ -1,4 +1,4 @@
-const ThingInterface = require("./ThingInterface");
+const ThingInterface = require("../ThingInterface");
 
 class Lamp extends ThingInterface {
 

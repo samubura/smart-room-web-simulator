@@ -5,11 +5,14 @@ class ThingWrapper {
   eventTickRate = 0
   ticksFromLastEvent = 0;
   actionEvent = true
+  thing = undefined
+  environment = undefined
 
-  constructor(id, eventTickRate = 0, actionEvent = true) {
+  constructor(id, env, eventTickRate = 0, actionEvent = true) {
     this.id = id
     this.eventTickRate = eventTickRate
     this.actionEvent = actionEvent
+    this.environment = env
   }
 
   async init(env) {
@@ -30,6 +33,9 @@ class ThingWrapper {
   }
 
   async tick() {
+    if (this.thing) {
+      this.thing.tick()
+    }
     this.ticksFromLastEvent++;
     if (this.eventTickRate == this.ticksFromLastEvent) {
       await this.publishUpdate()
@@ -38,6 +44,10 @@ class ThingWrapper {
   }
 
   async publishUpdate() {
+    eventService.publish("thing-update", {
+      id: this.id,
+      state: this.thing
+    })
   }
 
   //abstract

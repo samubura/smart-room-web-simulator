@@ -1,11 +1,13 @@
-const Lamp = require("../../../../models/Lamp");
-const SimulationThingWrapper = require("../SimulationThingWrapper");
+const Lamp = require('../../../../thing_models/simulated/Lamp');
 const exceptions = require('../../../../utils/thing-exceptions')
+const ThingWrapper = require('../ThingWrapper')
 
-class LampWrapper extends SimulationThingWrapper {
+class LampWrapper extends ThingWrapper {
 
   constructor(id, env) {
-    super(id, env, 0)
+    //eventTickRate is 0 so no event will be pushed periodically
+    //actionEvent is true so events will be triggered when actions are invoked
+    super(id, env, 0, true)
   }
 
   async init(env) {
@@ -20,7 +22,7 @@ class LampWrapper extends SimulationThingWrapper {
       case 'state':
         return await this.thing.getState()
       default:
-        exceptions.propertyNotFound(propertyName)
+        exceptions.propertyNotFound(this.id, propertyName)
     }
   }
 
@@ -31,13 +33,13 @@ class LampWrapper extends SimulationThingWrapper {
           await this.thing.setColor(data.color)
           return await this.thing.getColor();
         } else {
-          exceptions.badInput(actionName)
+          exceptions.badInput(this.id, actionName)
         }
         case 'toggle':
           await this.thing.toggle()
           return await this.thing.getState();
         default:
-          exceptions.actionNotFound(actionName)
+          exceptions.actionNotFound(this.id, actionName)
     }
   }
 

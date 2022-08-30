@@ -1,11 +1,11 @@
 const Lamp = require("../../../../models/Lamp");
-const SimulationThingWrapper = require("../SimulationThingWrapper");
-const exceptions = require('../../../../utils/thing-exceptions')
+const exceptions = require('../../../../utils/thing-exceptions');
+const ApiKeyHeaderThingWrapper = require("../ApiKeyHeaderThingWrapper");
 
-class ApiKeyLampWrapper extends SimulationThingWrapper {
+class ApiKeyLampWrapper extends ApiKeyHeaderThingWrapper {
 
   constructor(id, env) {
-    super(id, env, 0)
+    super(id, env, 0, true, "x-credentials", "opensesame")
   }
 
   async init(env) {
@@ -13,18 +13,7 @@ class ApiKeyLampWrapper extends SimulationThingWrapper {
     this.thing = new Lamp()
   }
 
-  _checkAuthorization(req, operation, property) {
-    if (!req.headers['x-credentials']) {
-      return this.unauthorized(operation, property)
-    }
-    if (req.headers['x-credentials'] != 'opensesame') { //TODO change
-      return this.forbidden(operation, property)
-    }
-  }
-
-
   async mapProperty(req, propertyName) {
-    _checkAuthorization(req, "read", property)
     switch (propertyName) {
       case 'color':
         return await this.thing.getColor()
@@ -36,7 +25,6 @@ class ApiKeyLampWrapper extends SimulationThingWrapper {
   }
 
   async mapAction(req, actionName, data) {
-    _checkAuthorization(req, "use", property)
     switch (actionName) {
       case 'setColor':
         if (data.color) {

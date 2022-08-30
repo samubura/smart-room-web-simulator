@@ -24,9 +24,9 @@ module.exports.start = function (workspace) {
   //if there is an environment definition
   var envFile = path.join('..', 'td', workspace, 'environment.json')
   if (fs.existsSync(envFile)) {
-    //Instantiate the environment as any WrappedThing that will be updated first and passed to the other ones
+    //Instantiate the environment as a wrapped thing that will be updated first and passed to the other ones
     var envTD = JSON.parse(fs.readFileSync(envFile, 'utf8'));
-    environment = require('./wrappers/' + envTD['@type']).create(id, undefined)
+    environment = require('./wrappers/' + workspace +'/'+ envTD['@type']).create(id, undefined)
   } else {
     //else leave that undefined
     environment = undefined;
@@ -36,7 +36,7 @@ module.exports.start = function (workspace) {
   things.forEach(t => {
     var td = JSON.parse(fs.readFileSync(path.join('..', 'td', workspace, t), 'utf8'));
     var id = td.title
-    var thing = require('./wrappers/'+workspace+'/'+ td['@type']).create(id, environment)
+    var thing = require('./wrappers/' + workspace + '/' + td['@type']).create(id, environment)
     thing.init(environment).then(() => {
       simulationThings[id] = thing
     });
