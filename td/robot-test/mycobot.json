@@ -1,0 +1,168 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "@type": "MyCoBot",
+    "id": "http://localhost:3000/workspaces/robot-test/things/mycobot",
+    "title": "mycobot",
+    "base": "http://localhost:3000/affordances/robot-test/mycobot/",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "nosec_sc"
+    ],
+    "properties": {
+        "coordinates": {
+            "type": "object",
+            "properties": {
+                "X": {
+                    "type": "number"
+                },
+                "Y": {
+                    "type": "number"
+                },
+                "Z": {
+                    "type": "number"
+                },
+                "Rx": {
+                    "type": "number"
+                },
+                "Ry": {
+                    "type": "number"
+                },
+                "Rz": {
+                    "type": "number"
+                }
+            }
+        },
+        "speed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "forms": [
+                {
+                    "href": "speed",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": true,
+            "writeOnly": false
+        },
+        "color": {
+            "type": "object",
+            "properties": {
+                "red": {
+                    "type": "integer",
+                    "maximum": 255,
+                    "minimum": 0
+                },
+                "green": {
+                    "type": "integer",
+                    "maximum": 255,
+                    "minimum": 0
+                },
+                "blue": {
+                    "type": "integer",
+                    "maximum": 255,
+                    "minimum": 0
+                }
+            },
+            "forms": [
+                {
+                    "href": "color",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": true,
+            "writeOnly": false
+        },
+        "gripper": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4096,
+            "forms": [
+                {
+                    "href": "gripper",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": true,
+            "writeOnly": false
+        },
+        "gripper_speed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "forms": [
+                {
+                    "href": "gripper_speed",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": true,
+            "writeOnly": false
+        }
+    },
+    "actions": {
+        "setSpeed": {
+
+        },
+        "setColor": {
+            "input": {
+                "type": "object",
+                "properties": {
+                    "red": {
+                        "type": "integer",
+                        "maximum": 255,
+                        "minimum": 0
+                    },
+                    "green": {
+                        "type": "integer",
+                        "maximum": 255,
+                        "minimum": 0
+                    },
+                    "blue": {
+                        "type": "integer",
+                        "maximum": 255,
+                        "minimum": 0
+                    }
+                },
+                "required": [
+                    "red", 
+                    "green", 
+                    "blue"
+                ],
+                "readOnly": false,
+                "writeOnly": false
+            },
+            "forms": [
+                {
+                    "href": "color",
+                    "op": "invokeaction",
+                    "contentType": "application/json"
+                }
+            ],
+            "safe": false,
+            "idempotent": false
+        },
+        "setGripper": {
+
+        },
+        "setGripperSpeed": {
+
+        }
+    }
+}
