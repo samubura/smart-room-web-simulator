@@ -1,4 +1,4 @@
 module.exports = {
-  workspace: 'flatmates-simulated',
+  workspace: 'robot-test',
   ticksPerSecond: 1
 }
