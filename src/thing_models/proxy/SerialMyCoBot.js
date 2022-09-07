@@ -22,6 +22,7 @@ class SerialMyCoBot extends ThingInterface {
     blue: 0
   }
   constructor(){
+    super()
     //setting starting color equivalent to the one in memory
     serial.write(mycobot.setColor(this.currentColor.red, this.currentColor.green, this.currentColor.blue))
   }

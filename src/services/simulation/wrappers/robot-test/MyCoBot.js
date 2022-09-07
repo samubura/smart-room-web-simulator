@@ -1,4 +1,5 @@
-const SerialMyCoBot = require("../../../../thing_models/proxy/SerialMyCoBot");
+//const SerialMyCoBot = require("../../../../thing_models/proxy/SerialMyCoBot");
+const MockMyCobot = require("../../../../thing_models/mock/MockMyCobot")
 const exceptions = require("../../../../utils/thing-exceptions");
 const ThingWrapper = require("../ThingWrapper");
 
@@ -7,13 +8,22 @@ class MyCobotWrapper extends ThingWrapper {
   constructor(id, env) {
     super(id, env, 0)
 
-    this.thing = new SerialMyCoBot()
+    this.thing = new MockMyCobot()//TODO change new SerialMyCoBot()
   }
 
   async mapProperty(req, propertyName) {
     switch (propertyName) {
       case "angles": return await this.thing.getAngles();
-      case "coordinates": return await this.thing.getCoordinates();
+      case "coordinates":
+        var array = await this.thing.getCoordinates(); 
+        return {
+          X: array[0],
+          Y: array[1],
+          Z: array[2],
+          Rx: array[3],
+          Ry: array[4],
+          Rz: array [5]
+        }
       case "headColor": return await this.thing.getHeadColor();
       case "gripper": return await this.thing.getGripper();
       default:
