@@ -1,5 +1,6 @@
 const exceptions = require('../../../utils/thing-exceptions')
-const eventService = require("../../event-service")
+const eventService = require('../../event-service')
+
 class ThingWrapper {
   id = undefined
   eventTickRate = 0

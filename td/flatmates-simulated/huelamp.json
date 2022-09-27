@@ -1,9 +1,9 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
     "@type": "HueLamp",
-    "id": "http://10.2.2.187:3000/workspaces/flatmates/things/huelamp",
+    "id": "http://localhost:3000/workspaces/flatmates-simulated/things/huelamp",
     "title": "huelamp",
-    "base": "http://10.2.2.187:3000/affordances/flatmates/huelamp/",
+    "base": "http://localhost:3000/affordances/flatmates-simulated/huelamp/",
     "securityDefinitions": {
         "nosec_sc": {
             "scheme": "nosec"
