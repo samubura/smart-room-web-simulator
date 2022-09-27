@@ -1,0 +1,78 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "@type": "tallLight",
+    "id": "http://localhost:3000/workspaces/pslab/things/tall-light",
+    "title": "tall-light",
+    "base": "http://localhost:3000/affordances/pslab/tall-light/",
+    "securityDefinitions": {
+        "nosec_sc": {
+            "scheme": "nosec"
+        }
+    },
+    "security": [
+        "nosec_sc"
+    ],
+    "properties": {
+        "state": {
+            "type": "boolean",
+            "forms": [
+                {
+                    "href": "state",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": false,
+            "writeOnly": false
+        },
+        "color": {
+            "type": "string",
+            "forms": [
+                {
+                    "href": "color",
+                    "op": [
+                        "readproperty"
+                    ],
+                    "contentType": "application/json"
+                }
+            ],
+            "readOnly": false,
+            "writeOnly": false
+        }
+    },
+    "actions": {
+        "toggle": {
+            "forms": [
+                {
+                    "href": "toggle",
+                    "op": "invokeaction",
+                    "contentType": "application/json"
+                }
+            ],
+            "safe": false,
+            "idempotent": false
+        },
+        "setColor": {
+            "input": {
+                "type": "object",
+                "properties": {
+                    "color": {
+                        "type": "string"
+                    }
+                },
+                "required": ["color"]
+            },
+            "forms": [
+                {
+                    "href": "color",
+                    "op": "invokeaction",
+                    "contentType": "application/json"
+                }
+            ],
+            "safe": false,
+            "idempotent": false
+        }
+    }
+}

@@ -8,7 +8,7 @@ class HttpHueLampWrapper extends ThingWrapper {
 
   constructor(id) {
     super(id, 5)
-    this.thing = HttpHueLamp();
+    this.thing = new HttpHueLamp(1);
   }
 
   async init() {

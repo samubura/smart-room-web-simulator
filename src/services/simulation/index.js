@@ -58,9 +58,9 @@ module.exports.invokeAction = async function (req, thingId, action, data) {
 
 module.exports.publishUpdate = async function(){
   if(environment){
-    await environment.publishUpdate()
+    await environment.publishStateUpdate()
   }
   for (t in simulationThings) {
-    await simulationThings[t].publishUpdate()
+    await simulationThings[t].publishStateUpdate()
   }
 }

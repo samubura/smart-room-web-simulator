@@ -3,7 +3,7 @@ const exceptions = require('../../../../utils/thing-exceptions')
 const axios = require('axios')
 
 const baseURL = "https://api.interactions.ics.unisg.ch/cherrybot"
-const auth = "8ba21acd28754314bafab039571ce446"
+const auth = "8ba21acd28754314bafab039571ce446" //permanent
 
 
 class RobotArm extends ThingWrapper {

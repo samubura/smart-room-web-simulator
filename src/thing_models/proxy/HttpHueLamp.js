@@ -1,24 +1,26 @@
 const ThingInterface = require("../ThingInterface");
 
 const axios = require('axios')
-const hueBridgeIP = "http://10.2.2.129" //"http://10.2.2.130";
-const hueDevID = "6VSftsxsJsHhcw647q-LrmCfhMO5ogTTrE02XqeQ" //"nGIedUst7D--LUn68Kxynwi1Valsc5Ex1D1pRZ7M";
-const lampIndex = 5
+const hueBridgeIP = "http://192.168.43.120"
+const hueDevID = "w9r9zGUe0RmhErVq-0rnPc7yrdr70LlsreHpjqqQ" 
 
 class HttpHueLamp extends ThingInterface {
 
   color = undefined
   state = undefined
 
-  constructor() {
+  lampIndex = undefined
+
+  constructor(lampIndex) {
     super()
+    this.lampIndex = lampIndex
   }
 
   async getRealLampProperties() {
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}`
+    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${this.lampIndex}`
     let res = await axios.get(url)
     let lamp = res.data.state
-    if(!color || lamp.on){
+    if(!this.color || lamp.on){
       //if the lamp is off color is not correctly changed so it might be wrong unless color is undefined
       this.color = HueColorToHex(lamp.hue, lamp.sat, lamp.bri)
     }
@@ -44,7 +46,7 @@ class HttpHueLamp extends ThingInterface {
     this.state = !this.state
     //changing color because it might have been changed while the lamp was off
     let color = HexToHueColor(this.color)
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}/state`
+    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${this.lampIndex}/state`
     let body = {
       on: this.state,
       hue: color[0],
@@ -58,7 +60,7 @@ class HttpHueLamp extends ThingInterface {
   async setColor(hex){
     this.color = hex
     let color = HexToHueColor(hex)
-    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${lampIndex}/state`
+    let url = `${hueBridgeIP}/api/${hueDevID}/lights/${this.lampIndex}/state`
     let body = {
       hue: color[0],
       sat: color[1],

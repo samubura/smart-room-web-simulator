@@ -1,5 +1,5 @@
 const exceptions = require('../../../utils/thing-exceptions')
-
+const eventService = require("../../event-service")
 class ThingWrapper {
   id = undefined
   eventTickRate = 0
@@ -7,6 +7,7 @@ class ThingWrapper {
   actionEvent = true
   thing = undefined
   environment = undefined
+  eventService = eventService
 
   constructor(id, env, eventTickRate = 0, actionEvent = true) {
     this.id = id
@@ -27,7 +28,7 @@ class ThingWrapper {
   async invokeAction(req, actionName, data) {
     var res = await this.mapAction(req, actionName, data)
     if (this.actionEvent) {
-      this.publishUpdate()
+      this.publishStateUpdate(this.thing)
     }
     return res
   }
@@ -38,15 +39,15 @@ class ThingWrapper {
     }
     this.ticksFromLastEvent++;
     if (this.eventTickRate == this.ticksFromLastEvent) {
-      await this.publishUpdate()
+      await this.publishStateUpdate(this.thing)
       this.ticksFromLastEvent = 0;
     }
   }
 
-  async publishUpdate() {
+  async publishStateUpdate(state) {
     eventService.publish("thing-update", {
       id: this.id,
-      state: this.thing
+      state: state
     })
   }
 

@@ -1,4 +1,4 @@
 module.exports = {
-  workspace: 'flatmates',
+  workspace: 'pslab',
   ticksPerSecond: 1
 }
