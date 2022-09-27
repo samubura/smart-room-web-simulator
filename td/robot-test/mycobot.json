@@ -130,14 +130,47 @@
                 "type": "object",
                 "properties": {
                     "jointAngles": {
-                        "type": "array",
-                        "items": {
-                            "type": "number",
-                            "minimum": -160,
-                            "maximum": 160
+                        "type": "object",
+                        "properties": {
+                            "J1":{
+                                "type": "number",
+                                "minimum": -160,
+                                "maximum": 160
+                            },
+                            "J2":{
+                                "type": "number",
+                                "minimum": -160,
+                                "maximum": 160
+                            },
+                            "J3":{
+                                "type": "number",
+                                "minimum": -160,
+                                "maximum": 160
+                            },
+                            "J4":{
+                                "type": "number",
+                                "minimum": -160,
+                                "maximum": 160
+                            },
+                            "J5": {
+                                "type": "number",
+                                "minimum": -160,
+                                "maximum": 160
+                            },
+                            "J6":{
+                                "type": "number",
+                                "minimum": -160,
+                                "maximum": 160
+                            }
                         },
-                        "minItems": 6,
-                        "maxItems": 6
+                        "required": [
+                            "J1",
+                            "J2",
+                            "J3",
+                            "J4",
+                            "J5",
+                            "J6"
+                        ]
                     },
                     "speed": {
                         "type": "integer",
@@ -316,18 +349,18 @@
                 "properties": {
                     "red": {
                         "type": "integer",
-                        "maximum": 255,
-                        "minimum": 0
+                        "maximum": 256,
+                        "minimum": -1
                     },
                     "green": {
                         "type": "integer",
-                        "maximum": 255,
-                        "minimum": 0
+                        "maximum": 256,
+                        "minimum": -1
                     },
                     "blue": {
                         "type": "integer",
-                        "maximum": 255,
-                        "minimum": 0
+                        "maximum": 256,
+                        "minimum": -1
                     }
                 },
                 "required": [

@@ -2,7 +2,13 @@ const ThingInterface = require("../ThingInterface");
 
 const mycobot = require("mycobot")
 // obj Based on SerialPort 
-const serial = mycobot.connect("COM3",115200) //TODO change?
+const serial = mycobot.connect("COM5",115200) //TODO change?
+
+// Receive returned data
+serial.on("data",(data)=>{ 
+  res = mycobot.processReceived(data) 
+  console.log("res:", res)
+})
 
 //extracted from mycobot commons
 const Coord = {
@@ -18,8 +24,8 @@ class SerialMyCoBot extends ThingInterface {
 
   currentColor = {
     red: 0,
-    green: 255,
-    blue: 0
+    green: 0,
+    blue: 255,
   }
   constructor(){
     super()
