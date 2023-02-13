@@ -6,8 +6,8 @@ class HttpHueLampWrapper extends ThingWrapper {
 
   currentProperties = undefined;
 
-  constructor(id) {
-    super(id, 5)
+  constructor(id, env) {
+    super(id, env, 5, true)
     this.thing = HttpHueLamp();
   }
 
@@ -15,6 +15,7 @@ class HttpHueLampWrapper extends ThingWrapper {
     this.currentProperties = await this.thing.getRealLampProperties();
   }
 
+  //reimplementing because it needs to first get the state from the real time
   async publishStateUpdate(){
     await this.init()
     super.publishStateUpdate(this.currentProperties)
