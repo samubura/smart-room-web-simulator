@@ -1,4 +1,4 @@
 module.exports = {
-  workspace: 'pslab',
+  workspace: 'lamp-simulated',
   ticksPerSecond: 1
 }

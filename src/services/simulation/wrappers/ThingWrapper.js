@@ -29,7 +29,7 @@ class ThingWrapper {
   async invokeAction(req, actionName, data) {
     var res = await this.mapAction(req, actionName, data)
     if (this.actionEvent) {
-      this.publishStateUpdate(this.thing)
+      this.publishStateUpdate()
     }
     return res
   }
@@ -40,15 +40,15 @@ class ThingWrapper {
     }
     this.ticksFromLastEvent++;
     if (this.eventTickRate == this.ticksFromLastEvent) {
-      await this.publishStateUpdate(this.thing)
+      await this.publishStateUpdate()
       this.ticksFromLastEvent = 0;
     }
   }
 
-  async publishStateUpdate(state) {
+  async publishStateUpdate() {
     eventService.publish("thing-update", {
       id: this.id,
-      state: state
+      state: this.thing
     })
   }
 

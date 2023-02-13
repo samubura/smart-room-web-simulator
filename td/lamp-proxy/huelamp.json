@@ -1,18 +1,16 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
-    "@type": "ApiKeyLamp",
-    "title": "apikey-lamp",
-    "id": "http://localhost:3000/workspaces/smart-room/things/apikey-lamp",
-    "base": "http://localhost:3000/affordances/smart-room/apikey-lamp/",
+    "@type": "HueLamp",
+    "id": "http://localhost:3000/workspaces/lamp-proxy/things/huelamp",
+    "title": "huelamp",
+    "base": "http://localhost:3000/affordances/lamp-proxy/huelamp/",
     "securityDefinitions": {
-        "key": {
-            "scheme": "apikey",
-            "name": "x-credentials",
-            "in": "header"
+        "nosec_sc": {
+            "scheme": "nosec"
         }
     },
     "security": [
-        "key"
+        "nosec_sc"
     ],
     "properties": {
         "state": {
@@ -30,12 +28,7 @@
             "writeOnly": false
         },
         "color": {
-            "type": "object",
-            "properties": {
-                "hex" : {
-                    "type": "string"
-                }
-            },
+            "type": "string",
             "forms": [
                 {
                     "href": "color",
@@ -51,9 +44,6 @@
     },
     "actions": {
         "toggle": {
-            "output": {
-                "type":"boolean"
-            },
             "forms": [
                 {
                     "href": "toggle",
@@ -69,28 +59,10 @@
                 "type": "object",
                 "properties": {
                     "color": {
-                        "type": "string",
-                        "readOnly": false,
-                        "writeOnly": false
+                        "type": "string"
                     }
                 },
-                "required": [
-                    "color"
-                ],
-                "readOnly": false,
-                "writeOnly": false
-            },
-            "output": {
-                "type": "object",
-                "properties": {
-                    "color": {
-                        "type": "string",
-                        "readOnly": false,
-                        "writeOnly": false
-                    }
-                },
-                "readOnly": false,
-                "writeOnly": false
+                "required": ["color"]
             },
             "forms": [
                 {
