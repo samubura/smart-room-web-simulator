@@ -2,7 +2,7 @@ const ThingInterface = require("../ThingInterface");
 
 const mycobot = require("mycobot")
 // obj Based on SerialPort 
-const serial = mycobot.connect("COM5",115200) //TODO change?
+const serial = mycobot.connect("COM6",115200) //TODO change?
 
 // Receive returned data
 serial.on("data",(data)=>{ 
