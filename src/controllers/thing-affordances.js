@@ -57,7 +57,7 @@ exports.readProperty = async function (req) {
 }
 
 exports.invokeAction = async function (req) {
-  try {
+ try {
     var actionName = findActionName(req.params.thingId, req.params.form)
     if(!actionName){
       return notFound(`${req.url} not found`)
@@ -65,7 +65,7 @@ exports.invokeAction = async function (req) {
     var res = await simulation.invokeAction(req, req.params.thingId, actionName, req.body)
     logInteraction(req, actionName, "invoked action")
     return ok(res)
-  } catch (e) {
-    return error(e);
-  }
+ } catch (e) {
+   return error(e);
+ }
 }

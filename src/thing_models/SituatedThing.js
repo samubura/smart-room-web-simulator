@@ -5,6 +5,7 @@ class SituatedThing extends ThingInterface {
   environment = undefined
 
   constructor(environment) {
+    super()
     this.environment = environment
   }
 

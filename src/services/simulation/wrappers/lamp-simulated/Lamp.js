@@ -1,21 +1,17 @@
-const Lamp = require('../../../../thing_models/simulated/Lamp');
+const Lamp = require('../../../../thing_models/simulated/lamp/RGBLamp');
 const exceptions = require('../../../../utils/thing-exceptions')
 const ThingWrapper = require('../ThingWrapper')
 
 class LampWrapper extends ThingWrapper {
 
   constructor(id, env) {
+    //since Lamp is not a situated thing ignore the env
     //eventTickRate is 0 so no event will be pushed periodically
     //actionEvent is true so events will be triggered when actions are
     super(id, env, 0, true)
-  }
-
-  async init(env) {
-    //since Lamp is not a situated thing ignore the env
     this.thing = new Lamp()
   }
-
- 
+  
   async mapProperty(req, propertyName) {
     switch (propertyName) {
       case 'color':

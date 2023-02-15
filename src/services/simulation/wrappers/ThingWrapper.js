@@ -17,8 +17,8 @@ class ThingWrapper {
     this.environment = env
   }
 
-  async init(env) {
-    //put here some initialization for the wrapper
+  async init() {
+    //put here some initialization for the wrapper if the thing is a proxy
   }
 
   async readProperty(req, propertyName) {
@@ -45,10 +45,15 @@ class ThingWrapper {
     }
   }
 
+  //reimplement to filter some fields
+  async getState(){
+    return this.thing;
+  }
+
   async publishStateUpdate() {
     eventService.publish("thing-update", {
       id: this.id,
-      state: this.thing
+      state: await this.getState()
     })
   }
 
@@ -59,7 +64,7 @@ class ThingWrapper {
 
   //abstract
   async mapAction(actionName, body) {
-    exceptions.actionNotFound(actionName)
+    xceptions.actionNotFound(actionName)
   }
 }
 

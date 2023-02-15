@@ -1,0 +1,16 @@
+{
+    "@context": "https://www.w3.org/2019/wot/td/v1",
+    "title": "environment",
+    "@type": "GridFieldEnvironment",
+    "id": "http://localhost:3000/workspaces/smart-farming/things/environment",
+    "base": "http://localhost:3000/affordances/smart-farming/environment/",
+    "securityDefinitions": {
+      "nosec_sc": {
+        "scheme": "nosec"
+      }
+    },
+    "security": "nosec_sc",
+    "properties": {},
+    "actions": {},
+    "events": {}
+  }
