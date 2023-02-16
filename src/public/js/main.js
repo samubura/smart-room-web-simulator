@@ -8,7 +8,8 @@ async function generateInterface(){
   //get the tds, order and sort
   for(t of things){
     t.td = await getThingDescription(t.uri)
-    t.renderOrder = getRenderOrder()
+    var type = t.td['@type']
+    t.renderOrder = getRenderOrder(typeToComponent[type])
   }
   things.sort((t1,t2) => t1.renderOrder - t2.renderOrder)
   
@@ -26,8 +27,8 @@ async function getThingDescription(uri){
   return res.data
 }
 
-function getRenderOrder(type){
-  var order = renderOrder.indexOf(type)
+function getRenderOrder(component){
+  var order = renderOrder.indexOf(component)
   return  order >= 0 ? order : renderOrder.length
 }
 

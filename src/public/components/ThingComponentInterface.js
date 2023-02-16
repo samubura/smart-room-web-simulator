@@ -5,7 +5,6 @@ class ThingComponentInterface {
     this.td = td
   }
 
-
   update(state){}
 
   _createDOM(){}

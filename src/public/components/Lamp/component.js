@@ -37,6 +37,4 @@ class Lamp extends ThingComponentInterface {
     $(`<img src="./components/Lamp/lamp.png" alt="lamp icon"> `).appendTo($imgDiv)
   }
 
-
-
 }

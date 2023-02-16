@@ -1,8 +1,8 @@
-const renderOrder = [];
+const renderOrder = ["GridFieldEnvironment", "GridDirectionalMover"];
 
 const typeToComponent = {
   Lamp: "Lamp",
-  ApiKeyLamp: "Lamp",
-  BasicLamp: "Lamp",
-  HueLamp: "Lamp"
+  GridFieldEnvironment: "GridFieldEnvironment",
+  IrrigatorTractor: "GridDirectionalMover",
+  SoilCheckerTractor: "GridDirectionalMover"
 }

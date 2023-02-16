@@ -3,9 +3,9 @@ const exceptions = require('../../../../utils/thing-exceptions')
 const ThingWrapper = require('../ThingWrapper')
 
 const boundaries = {
-  xMax: 3,
+  xMax: 10,
   xMin: 0,
-  yMax: 3,
+  yMax: 10,
   yMin: 0,
 }
 

@@ -1,7 +1,7 @@
 {
     "@context": "https://www.w3.org/2019/wot/td/v1",
     "title": "soilChecker",
-    "@type": "Tractor",
+    "@type": "SoilCheckerTractor",
     "id": "http://localhost:3000/workspaces/smart-farming/things/soilChecker",
     "base": "http://localhost:3000/affordances/smart-farming/soilChecker/",
     "securityDefinitions": {
@@ -15,7 +15,16 @@
         "description": "Current position of the tractor",
         "observable": false,
         "readOnly": true,
-        "type": "integer",
+        "type": "object",
+        "properties": {
+            "x": {
+                "type": "integer"
+            },
+            "y": {
+              "type": "integer"
+          }
+        },
+        "required": ["x","y"],
         "forms": [
           {
             "op": [
@@ -42,11 +51,18 @@
     },
     "actions": {
       "moveToField": {
-        "description": "Make the tractor move to a field, returns the needed time to reach destination",
+        "description": "Make the tractor move to a field, return the number of ticks needed to perform the movement, -1 if the position is not reachable",
         "input":{
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 8
+          "type": "object",
+          "properties": {
+              "x": {
+                  "type": "integer"
+              },
+              "y": {
+                "type": "integer"
+            }
+          },
+          "required": ["x","y"]
         },
         "output":{
           "type": "number"
