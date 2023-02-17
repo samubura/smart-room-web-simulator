@@ -48,4 +48,4 @@ class SoilCheckerTractorWrapper extends ThingWrapper {
   }
 }
 
-module.exports.create = (id, env) => new SoilCheckerTractorWrapper(id, env, {x: 1, y:1}, 0)
+module.exports.create = (id, env) => new SoilCheckerTractorWrapper(id, env, {x: 0, y:0}, 0)

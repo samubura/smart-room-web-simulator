@@ -4,6 +4,9 @@
 //2 negative y
 //3 negative x
 
+const stepSpeed = 1;
+const turnSpeed = 0;
+
 const SituatedThing = require("../../SituatedThing");
 
 class GridDirectionalMover extends SituatedThing{
@@ -18,9 +21,6 @@ class GridDirectionalMover extends SituatedThing{
     yMax: undefined,
     yMin: undefined,
   }
-
-  stepStack = [];
-  currentStep = undefined;
 
   constructor(environment, startingPosition, startingDirection) {
     super(environment)
@@ -90,38 +90,16 @@ class GridDirectionalMover extends SituatedThing{
       
       default: break;
     }
-    this.stepStack = steps.reverse()
+    this.actionStack = steps.reverse()
     return steps.map(x => x.ticks).reduce((x,y) => x+y)
   }
 
-  tick(){
-    if(this.currentStep){
-      if(this.currentStep.ticks == 0){
-        this._executeCurrentStep();
-        return
-      } else {
-        this.currentStep.ticks = this.currentStep.ticks - 1
-        return
-      }
-    }
-    if(!this.currentStep && this.stepStack.length > 0){
-      this.currentStep = this.stepStack.pop();
-      if(this.currentStep.ticks - 1 > 0){
-        this.currentStep.ticks = this.currentStep.ticks - 2
-        return;
-      } else {
-        this._executeCurrentStep();
-      }
-    }
-  }
-
-  _executeCurrentStep(){
-    if(this.currentStep.turn){
-      this._turn(this.currentStep.direction);
+  _executeCurrentAction(){
+    if(this.currentAction.turn){
+      this._turn(this.currentAction.direction);
     } else {
       this._stepForward();
     }
-    this.currentStep = undefined;
   }
 
   _admissiblePosition(position){
@@ -131,13 +109,13 @@ class GridDirectionalMover extends SituatedThing{
   _getForwardSteps(n){
     var steps = []
     for (let i = 0; i < n; i++) {
-      steps.push({direction: 0, turn: false, ticks: 3})
+      steps.push({direction: 0, turn: false, ticks: stepSpeed})
     }
     return steps;
   }
 
   _getTurnStep(turnDirection){
-    return {direction: turnDirection, turn: true, ticks: 1}
+    return {direction: turnDirection, turn: true, ticks: turnSpeed}
   }
 
   _getUpdatedMentalDirection(mental_direction, turnDirection){

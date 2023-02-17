@@ -6,10 +6,6 @@ var environment = undefined; //TODO change
 
 
 async function simulate() {
-  //update the env
-  if (environment) {
-    await environment.tick()
-  }
   //update the things
   for (t in simulationThings) {
     await simulationThings[t].tick()
@@ -28,6 +24,7 @@ module.exports.start = function (workspace) {
     var envTD = JSON.parse(fs.readFileSync(envFile, 'utf8'));
     var id = envTD.title
     environment = require('./wrappers/' + workspace +'/'+ envTD['@type']).create(id, undefined)
+    simulationThings[id] = environment;
   } else {
     //else leave that undefined
     environment = undefined;
@@ -35,12 +32,14 @@ module.exports.start = function (workspace) {
 
   //Instantiate the things and sync initialization
   things.forEach(t => {
-    var td = JSON.parse(fs.readFileSync(path.join('..', 'td', workspace, t), 'utf8'));
-    var id = td.title
-    var thing = require('./wrappers/' + workspace + '/' + td['@type']).create(id, environment)
-    thing.init().then(() => {
-      simulationThings[id] = thing
-    });
+    if(t != 'environment.json') {
+      var td = JSON.parse(fs.readFileSync(path.join('..', 'td', workspace, t), 'utf8'));
+      var id = td.title
+      var thing = require('./wrappers/' + workspace + '/' + td['@type']).create(id, environment)
+      thing.init().then(() => {
+        simulationThings[id] = thing
+      });
+    }
   })
   simulate();
 }

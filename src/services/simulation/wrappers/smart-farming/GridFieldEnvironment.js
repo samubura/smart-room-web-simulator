@@ -1,23 +1,30 @@
-const GridEnvironment = require('../../../../thing_models/simulated/smart-farming/GridEnvironment');
+const GridFieldEnvironment = require('../../../../thing_models/simulated/smart-farming/GridFieldEnvironment');
 const exceptions = require('../../../../utils/thing-exceptions')
 const ThingWrapper = require('../ThingWrapper')
 
-const boundaries = {
-  xMax: 10,
-  xMin: 0,
-  yMax: 10,
-  yMin: 0,
-}
 
 class GridFieldEnvironmentWrapper extends ThingWrapper {
 
   constructor(id, env) {
-    super(id, undefined)
-    this.thing = new GridEnvironment(boundaries)
+    super(id, undefined, 1)
+    this.thing = new GridFieldEnvironment()
   }
 
   getEnvironment(){
     return this.thing;
+  }
+
+  async mapAction(req, actionName, data) {
+    switch (actionName) {
+      case 'rain':
+        this.thing.rain();
+        return;
+      case 'irrigate':
+        this.thing.irrigate(data.x, data.y)
+        return
+      default: 
+        return exceptions.actionNotFound(this.id, actionName)
+    }
   }
 
 }

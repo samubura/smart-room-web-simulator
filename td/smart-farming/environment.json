@@ -11,6 +11,39 @@
     },
     "security": "nosec_sc",
     "properties": {},
-    "actions": {},
+    "actions": {
+      "rain": {
+        "description": "Set all the fields to maxHumidity",
+        "forms": [
+          {
+            "href": "rain",
+            "op": "invokeaction",
+            "contentType": "application/json"
+          }
+        ]
+      }, 
+      "irrigate": {
+        "description": "Irrigate the field at the selected position",
+        "input":{
+          "type": "object",
+          "properties": {
+              "x": {
+                  "type": "integer"
+              },
+              "y": {
+                "type": "integer"
+            }
+          },
+          "required": ["x","y"]
+        },
+        "forms": [
+          {
+            "href": "irrigate",
+            "op": "invokeaction",
+            "contentType": "application/json"
+          }
+        ]
+      }
+    },
     "events": {}
   }

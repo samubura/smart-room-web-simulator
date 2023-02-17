@@ -8,32 +8,38 @@ componentFactory.GridDirectionalMover = {
 class GridDirectionalMover extends ThingComponentInterface{
 
   lastPosition = undefined;
+  lastDirection = undefined;
+  $indicator = undefined;
 
   constructor(td) {
     super(td)
     this._createDOM()
   }
 
-  //NB! in order for this to work the properties in the model and in the TD must have the same name
   update(state){
-    if(this.lastPosition){
-      $(`#${this.lastPosition.x}_${this.lastPosition.y}`).empty();
-    }
 
     let x = state.position.x
     let y = state.position.y
 
     let degree = 90*state.direction
 
-    $(`#${x}_${y}`).append(`<img id="${this.td.title}" 
-    style="transform:rotate(${degree}deg);"
-    src="./components/GridDirectionalMover/${this.td.title}.png" class="grid-image">`)
+    if(this.lastPosition == undefined || x != this.lastPosition.x || y != this.lastPosition.y || state.direction != this.lastDirection){
+      this.$indicator.remove()
+      this.$indicator = $(`<img id="${this.td.title}" 
+      style="transform:rotate(${degree}deg);"
+      src="./components/GridDirectionalMover/${this.td.title}.png" class="grid-image">`);
 
-    this.lastPosition = {x, y}
+      $(`#${x}_${y}`).append(this.$indicator)
+      this.lastPosition = {x,y}
+      this.lastDirection = state.direction
+    }
+    
   }
 
   _createDOM() {
-    
+    this.$indicator = $(`<img id="${this.td.title}" 
+    style="transform:rotate(${0}deg);"
+    src="./components/GridDirectionalMover/${this.td.title}.png" class="grid-image">`);
   }
 
 }

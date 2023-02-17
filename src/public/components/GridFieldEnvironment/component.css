@@ -16,3 +16,16 @@
   align-items: center;
   justify-content: center;
 }
+
+.cell-humid {
+  background-color: #5E3219;
+}
+
+.cell-regular{
+  background-color: #af6d4a;
+}
+
+.cell-dry{
+  background-color: #d6b275;
+}
+
