@@ -65,7 +65,7 @@
     },
     "actions": {
       "moveToField": {
-        "description": "Make the tractor move to a field, return the number of ticks needed to perform the movement, -1 if the position is not reachable",
+        "description": "Make the tractor move to a field, return the number of seconds needed to perform the movement, -1 if the position is not reachable",
         "input":{
           "type": "object",
           "properties": {
@@ -90,7 +90,7 @@
         ]
       },
       "goHome": {
-        "description": "Make the tractor go back home, returns the needed time to reach destination",
+        "description": "Make the tractor go back home, returns the number of seconds needed to reach destination",
         "output":{
           "type": "number"
         },
@@ -103,7 +103,10 @@
         ]
       },
       "irrigate": {
-        "description": "Irrigate the field at the current position for 2 ticks. Can be used only if waterLevel is > 0",
+        "description": "Irrigate the field at the current position, returns the number of seconds needed to complete. Can be used only if waterLevel is > 0. ",
+        "output":{
+          "type": "number"
+        },
         "forms": [
           {
             "href": "irrigate",

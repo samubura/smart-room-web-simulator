@@ -1,16 +1,3 @@
-//direction is 
-//0 positive y 
-//1 positive x 
-//2 negative y
-//3 negative x
-
-const boundaries = {
-  xMax: 4,
-  xMin: 0,
-  yMax: 4,
-  yMin: 0,
-}
-
 const GridEnvironment = require("./GridEnvironment");
 
 class GridFieldEnvironment extends GridEnvironment{
@@ -23,17 +10,20 @@ class GridFieldEnvironment extends GridEnvironment{
   xSize = undefined
   ySize = undefined
 
-  constructor() {
+  constructor(boundaries) {
     super(boundaries)
     this.xSize = this.boundaries.xMax + 1 - this.boundaries.xMin
     this.ySize = this.boundaries.yMax + 1 - this.boundaries.yMin
     this._initField();
   }
 
+  getField(){
+    return this.field;
+  }
+
   _initField(){
     this.field = Array(this.xSize).fill().map(()=>Array(this.ySize).fill().map(() => Math.floor(Math.random()*(this.maxHumidity+1))))
     this.actionStack.push({action: "decay", ticks: this.decayTicks})
-    console.log(this.field)
   }
 
   _decay(){
@@ -49,16 +39,31 @@ class GridFieldEnvironment extends GridEnvironment{
   }
 
   rain(){
-    for (let i = 0; i < this.field.length; i++) {
-      for (let j = 0; j < this.field[i].length; j++) {
-        this.irrigate(i,j)
+    for (let x = 0; x < this.field.length; x++) {
+      for (let y = 0; y < this.field[x].length; y++) {
+        this.irrigate({x,y})
       }
     }
   }
 
-  irrigate(x,y){
-    this.field[x-this.boundaries.xMin][y-this.boundaries.yMin] = this.maxHumidity;
-    console.log(this.field)
+  dryAll(){
+    for (let x = 0; x < this.field.length; x++) {
+      for (let y = 0; y < this.field[x].length; y++) {
+        this.dry({x,y})
+      }
+    }
+  }
+
+  irrigate(position){
+    this.field[position.x-this.boundaries.xMin][position.y-this.boundaries.yMin] = this.maxHumidity;
+  }
+
+  dry(position){
+    this.field[position.x-this.boundaries.xMin][position.y-this.boundaries.yMin] = this.minHumidity;
+  }
+
+  getHumidity(position){
+    return this.field[position.x-this.boundaries.xMin][position.y-this.boundaries.yMin]
   }
 
   _executeCurrentAction(){

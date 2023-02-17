@@ -1,9 +1,3 @@
-//direction is 
-//0 positive y 
-//1 positive x 
-//2 negative y
-//3 negative x
-
 const ThingInterface = require("../../ThingInterface");
 
 class GridEnvironment extends ThingInterface{

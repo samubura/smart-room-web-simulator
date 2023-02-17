@@ -1,19 +1,18 @@
-//direction is 
-//0 positive y 
-//1 positive x 
-//2 negative y
-//3 negative x
+const SituatedThing = require("../../SituatedThing");
 
 const stepSpeed = 1;
 const turnSpeed = 0;
-
-const SituatedThing = require("../../SituatedThing");
 
 class GridDirectionalMover extends SituatedThing{
 
   position = {x: undefined, y: undefined};
   homePosition = {x: undefined, y: undefined};
-  direction = undefined;
+
+  //0 towards positive Y
+  //1 towards positive X
+  //2 towards negative Y
+  //3 towards negative X
+  direction = undefined; 
 
   boundaries = {
     xMax: undefined,
@@ -24,7 +23,7 @@ class GridDirectionalMover extends SituatedThing{
 
   constructor(environment, startingPosition, startingDirection) {
     super(environment)
-    this.homePosition = startingPosition
+    this.homePosition = {x: startingPosition.x, y: startingPosition.y}
     this.position = startingPosition
     this.direction = startingDirection
     this.boundaries = environment.getBoundaries();
@@ -91,7 +90,7 @@ class GridDirectionalMover extends SituatedThing{
       default: break;
     }
     this.actionStack = steps.reverse()
-    return steps.map(x => x.ticks).reduce((x,y) => x+y)
+    return steps.map(x => x.ticks).reduce((x,y) => x+y, 0)
   }
 
   _executeCurrentAction(){

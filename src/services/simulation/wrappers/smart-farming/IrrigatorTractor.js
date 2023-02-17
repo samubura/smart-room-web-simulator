@@ -1,20 +1,29 @@
-const GridDirectionalMover = require('../../../../thing_models/simulated/smart-farming/GridDirectionalMover');
+const IrrigatorTractor = require('../../../../thing_models/simulated/smart-farming/IrrigatorTractor');
 const exceptions = require('../../../../utils/thing-exceptions')
 const ThingWrapper = require('../ThingWrapper')
 
+const {ticksPerSecond} = require('../../../../../config')
+
+//Instance Parameters
+const startingPosition = {x: 0, y: 0}
+const startingDirection = 0;
+const waterLevel = 10;
+
 class IrrigatorTractorWrapper extends ThingWrapper {
 
-  constructor(id, env, startingPosition, startingDirection) {
+  constructor(id, env) {
     super(id, env, 1, true)
-    this.thing = new GridDirectionalMover(env.getEnvironment(), startingPosition, startingDirection)
+    this.thing = new IrrigatorTractor(env.getEnvironment(), startingPosition, startingDirection, waterLevel)
   }
  
   async mapProperty(req, propertyName) {
     switch (propertyName) {
       case 'position':
-        return await this.thing.getPosition()
+        return this.thing.getPosition()
       case 'direction':
-        return await this.thing.getDirection()
+        return this.thing.getDirection()
+      case 'waterLevel':
+        return this.thing.getWaterLevel()
       default:
         exceptions.propertyNotFound(this.id, propertyName)
     }
@@ -27,12 +36,26 @@ class IrrigatorTractorWrapper extends ThingWrapper {
           if(!this._isPosition(data)){
             return exceptions.badInput(this.id, actionName)
           }
-          return await this.thing.move(data)
+          return this.thing.move(data) / ticksPerSecond
         } else {
           return exceptions.badInput(this.id, actionName)
         }
-        default: 
-          return exceptions.actionNotFound(this.id, actionName)
+      case 'goHome':
+        return this.thing.move(this.thing.getHomePosition()) / ticksPerSecond
+      case 'irrigate':
+        if(this.thing.getWaterLevel() <= 0){
+          return exceptions.forbidden(this.id, actionName);
+        }
+        return this.thing.irrigate()
+      case 'refillWater':
+        let position = this.thing.getPosition() 
+        let home = this.thing.getHomePosition()
+        if(position.x != home.x || position.y != home.y){
+          return exceptions.forbidden(this.id, actionName)
+        }
+        return this.thing.refillWater()
+      default: 
+        return exceptions.actionNotFound(this.id, actionName)
     }
   }
 
@@ -48,4 +71,4 @@ class IrrigatorTractorWrapper extends ThingWrapper {
   }
 }
 
-module.exports.create = (id, env) => new IrrigatorTractorWrapper(id, env, {x: 0, y:0}, 0)
+module.exports.create = (id, env) => new IrrigatorTractorWrapper(id, env)

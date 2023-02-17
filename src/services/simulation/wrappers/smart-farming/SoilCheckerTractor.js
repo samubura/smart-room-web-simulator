@@ -1,12 +1,18 @@
-const GridDirectionalMover = require('../../../../thing_models/simulated/smart-farming/GridDirectionalMover');
+const SoilCheckerTractor = require('../../../../thing_models/simulated/smart-farming/SoilCheckerTractor');
 const exceptions = require('../../../../utils/thing-exceptions')
 const ThingWrapper = require('../ThingWrapper')
 
+const {ticksPerSecond} = require('../../../../../config')
+
+//Instance Parameters
+const startingPosition = {x: 0, y: 0}
+const startingDirection = 0;
+
 class SoilCheckerTractorWrapper extends ThingWrapper {
 
-  constructor(id, env, startingPosition, startingDirection) {
+  constructor(id, env) {
     super(id, env, 1, true)
-    this.thing = new GridDirectionalMover(env.getEnvironment(), startingPosition, startingDirection)
+    this.thing = new SoilCheckerTractor(env.getEnvironment(), startingPosition, startingDirection)
   }
  
   async mapProperty(req, propertyName) {
@@ -27,10 +33,16 @@ class SoilCheckerTractorWrapper extends ThingWrapper {
           if(!this._isPosition(data)){
             return exceptions.badInput(this.id, actionName)
           }
-          return await this.thing.move(data)
+          //convert ticks in seconds
+          return this.thing.move(data) / ticksPerSecond
         } else {
           return exceptions.badInput(this.id, actionName)
         }
+        case 'goHome':
+          //convert ticks in seconds
+          return this.thing.move(this.thing.getHomePosition()) / ticksPerSecond
+        case 'checkSoilHumidity':
+          return {humidity: this.thing.getSoilHumidity()}
         default: 
           return exceptions.actionNotFound(this.id, actionName)
     }
@@ -48,4 +60,4 @@ class SoilCheckerTractorWrapper extends ThingWrapper {
   }
 }
 
-module.exports.create = (id, env) => new SoilCheckerTractorWrapper(id, env, {x: 0, y:0}, 0)
+module.exports.create = (id, env) => new SoilCheckerTractorWrapper(id, env)

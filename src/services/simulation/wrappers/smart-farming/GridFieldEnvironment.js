@@ -2,12 +2,19 @@ const GridFieldEnvironment = require('../../../../thing_models/simulated/smart-f
 const exceptions = require('../../../../utils/thing-exceptions')
 const ThingWrapper = require('../ThingWrapper')
 
+//Instance Parameters
+const boundaries = {
+  xMax: 4,
+  xMin: 0,
+  yMax: 4,
+  yMin: 0,
+}
 
 class GridFieldEnvironmentWrapper extends ThingWrapper {
 
-  constructor(id, env) {
-    super(id, undefined, 1)
-    this.thing = new GridFieldEnvironment()
+  constructor(id) {
+    super(id, undefined, 1, true)
+    this.thing = new GridFieldEnvironment(boundaries)
   }
 
   getEnvironment(){
@@ -20,13 +27,27 @@ class GridFieldEnvironmentWrapper extends ThingWrapper {
         this.thing.rain();
         return;
       case 'irrigate':
-        this.thing.irrigate(data.x, data.y)
+        this.thing.irrigate(data)
+        return
+      case 'dryAll':
+        this.thing.dryAll();
+        return;
+      case 'dry':
+        this.thing.dry(data)
         return
       default: 
         return exceptions.actionNotFound(this.id, actionName)
     }
   }
 
+  getState(){
+    return {
+      boundaries: this.thing.getBoundaries(),
+      field: this.thing.getField()
+    }
+  }
+
 }
+
 
 module.exports.create = (id, env) => new GridFieldEnvironmentWrapper(id)

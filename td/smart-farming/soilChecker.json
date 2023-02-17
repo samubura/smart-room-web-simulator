@@ -51,7 +51,7 @@
     },
     "actions": {
       "moveToField": {
-        "description": "Make the tractor move to a field, return the number of ticks needed to perform the movement, -1 if the position is not reachable",
+        "description": "Make the tractor move to a field, return the number of seconds needed to perform the movement, -1 if the position is not reachable",
         "input":{
           "type": "object",
           "properties": {
@@ -76,7 +76,7 @@
         ]
       },
       "goHome": {
-        "description": "Make the tractor go back home, returns the time needed to reach destination",
+        "description": "Make the tractor go back home, returns the number of seconds needed to reach destination",
         "output":{
           "type": "number"
         },
