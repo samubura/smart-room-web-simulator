@@ -1,11 +1,13 @@
 const GridEnvironment = require("./GridEnvironment");
 
+const tickMultiplier = 2.5;
+
 class GridFieldEnvironment extends GridEnvironment{
 
   field = [];
   maxHumidity = 2;
   minHumidity = 0;  
-  decayTicks = 10;
+  decayTicks = 0;
 
   xSize = undefined
   ySize = undefined
@@ -14,6 +16,8 @@ class GridFieldEnvironment extends GridEnvironment{
     super(boundaries)
     this.xSize = this.boundaries.xMax + 1 - this.boundaries.xMin
     this.ySize = this.boundaries.yMax + 1 - this.boundaries.yMin
+    //tune this formula...
+    this.decayTicks = Math.round(tickMultiplier * this.xSize * this.ySize);
     this._initField();
   }
 

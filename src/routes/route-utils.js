@@ -15,6 +15,7 @@ exports.action = function (f) {
       console.log(`${req.method} ${req.originalUrl}`)
       console.log("Agent:", req.headers['x-agent-id'])
       console.log('Body:', req.body)
+      console.log('Time:', new Date().toUTCString() )
       printSeparator()
       let result = (f ? await f(req) : notImplemented()) || notImplemented()
       res.setResult(result)

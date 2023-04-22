@@ -2,6 +2,7 @@ class LogManager {
 
   socket = undefined;
   $textarea = undefined
+  count = 0;
 
   constructor(socket){
     this.socket = socket
@@ -31,9 +32,19 @@ class LogManager {
   }
 
   _logMessage(message){
+    let erase = false
+    if(this.count > 200){
+      this.count = 0
+      erase = true
+    } else {
+      this.count = this.count+1;
+    }
     var timeStamp = new Date().toLocaleTimeString('en-IT', { hour12: false })
     var eventString = `[${timeStamp}] ${message}`
     $('#logs').find('textarea').val(function(i, text) {
+      if(erase){
+        text = "";
+      }
       return text + eventString + '\n';
     });
     this._scrollToBottom();

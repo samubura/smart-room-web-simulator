@@ -1,5 +1,8 @@
 .grid-image {
-  height:90%;
+  height: 50%;
   width: 90%;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: auto;
 }
 

@@ -1,6 +1,6 @@
 const GridDirectionalMover = require("./GridDirectionalMover");
 
-const irrigatingSpeed = 2;
+const irrigatingSpeed = 1;
 
 class IrrigatorTractor extends GridDirectionalMover {
   

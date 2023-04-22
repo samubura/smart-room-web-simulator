@@ -7,12 +7,12 @@ const {ticksPerSecond} = require('../../../../../config')
 //Instance Parameters
 const startingPosition = {x: 0, y: 0}
 const startingDirection = 0;
-const waterLevel = 10;
+const waterLevel = 4;
 
 class IrrigatorTractorWrapper extends ThingWrapper {
 
   constructor(id, env) {
-    super(id, env, 1, true)
+    super(id, env, 1, false)
     this.thing = new IrrigatorTractor(env.getEnvironment(), startingPosition, startingDirection, waterLevel)
   }
  
@@ -22,6 +22,8 @@ class IrrigatorTractorWrapper extends ThingWrapper {
         return this.thing.getPosition()
       case 'direction':
         return this.thing.getDirection()
+      case 'boundaries':
+        return this.thing.getBoundaries()
       case 'waterLevel':
         return this.thing.getWaterLevel()
       default:

@@ -41,6 +41,10 @@ class GridDirectionalMover extends SituatedThing{
     return this.homePosition
   }
 
+  getBoundaries() {
+    return this.boundaries
+  }
+
   move(newPosition){
     console.log(newPosition)
     if(!this._admissiblePosition(newPosition)){

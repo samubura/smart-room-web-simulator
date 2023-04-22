@@ -48,6 +48,35 @@
           }
         ]
       },
+      "boundaries": {
+        "description": "Boundaries of movement of the tractor.",
+        "observable": false,
+        "readOnly": true,
+        "type": "object",
+        "properties": {
+          "xMin": {
+            "type": "integer"
+          },
+          "xMax": {
+            "type": "integer"
+          },
+          "yMin": {
+            "type": "integer"
+          },
+          "yMax": {
+          "type": "integer"
+          }
+        },
+        "required": ["xMin", "xMax", "yMin", "yMax"],
+        "forms": [
+          {
+            "op": [
+              "readproperty"
+            ],
+            "href": "boundaries"
+          }
+        ]
+      },
       "waterLevel": {
         "description": "The current water capacity of the tractor",
         "observable": false,

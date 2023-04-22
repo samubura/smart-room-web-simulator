@@ -4,16 +4,16 @@ const ThingWrapper = require('../ThingWrapper')
 
 //Instance Parameters
 const boundaries = {
-  xMax: 4,
+  xMax: 3,
   xMin: 0,
-  yMax: 4,
+  yMax: 3,
   yMin: 0,
 }
 
 class GridFieldEnvironmentWrapper extends ThingWrapper {
 
   constructor(id) {
-    super(id, undefined, 1, true)
+    super(id, undefined, 1, false)
     this.thing = new GridFieldEnvironment(boundaries)
   }
 

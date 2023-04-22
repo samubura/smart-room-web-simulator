@@ -11,7 +11,7 @@ const startingDirection = 0;
 class SoilCheckerTractorWrapper extends ThingWrapper {
 
   constructor(id, env) {
-    super(id, env, 1, true)
+    super(id, env, 1, false)
     this.thing = new SoilCheckerTractor(env.getEnvironment(), startingPosition, startingDirection)
   }
  
@@ -21,6 +21,8 @@ class SoilCheckerTractorWrapper extends ThingWrapper {
         return await this.thing.getPosition()
       case 'direction':
         return await this.thing.getDirection()
+      case 'boundaries':
+        return this.thing.getBoundaries()
       default:
         exceptions.propertyNotFound(this.id, propertyName)
     }
